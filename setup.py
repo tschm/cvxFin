@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='cvxFin',
     version='1.0',
-    packages=['util'],
+    packages=['util','cvx'],
     url='https://github.com/tschm/cvxFin',
     license='',
     author='Thomas Schmelzer',
