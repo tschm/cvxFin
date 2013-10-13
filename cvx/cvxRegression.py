@@ -2,6 +2,7 @@ from sklearn.linear_model import lasso_path
 
 from util.quadraticProgram import QuadraticObjectiveProgram
 
+
 def solveLSQ(b, A, B, bxl, bxu, bcl, bcu):
     """
     Solves a constrained linear least squares problem
