@@ -5,8 +5,6 @@ setup(
     version='1.0',
     packages=['util', 'cvx'],
     url='https://github.com/tschm/cvxFin',
-    license='',
     author='Thomas Schmelzer',
-    author_email='thomas.schmelzer@gmail.com',
-    description=''
+    author_email='thomas.schmelzer@gmail.com'
 )

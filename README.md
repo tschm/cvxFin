@@ -11,3 +11,9 @@ Please provide feedback.
 
 I have created some tests. They are available by running nosetests. Again let me know how you manage.
 
+To install this package type
+python setup.py install
+
+For more details on this topic see
+http://docs.python.org/2/install/index.html
+
