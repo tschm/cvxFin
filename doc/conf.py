@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # cvxFin documentation build configuration file, created by
-# sphinx-quickstart on Mon Oct 14 01:10:25 2013.
+# sphinx-quickstart on Mon Oct 14 01:19:35 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'cvxFin'
-copyright = u'2013, thomas.schmelzer'
+copyright = u'2013, Thomas Schmelzer'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -184,7 +184,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'cvxFin.tex', u'cvxFin Documentation',
-   u'thomas.schmelzer', 'manual'),
+   u'Thomas Schmelzer', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -214,7 +214,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'cvxfin', u'cvxFin Documentation',
-     [u'thomas.schmelzer'], 1)
+     [u'Thomas Schmelzer'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -228,7 +228,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'cvxFin', u'cvxFin Documentation',
-   u'thomas.schmelzer', 'cvxFin', 'One line description of project.',
+   u'Thomas Schmelzer', 'cvxFin', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -246,9 +246,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'cvxFin'
-epub_author = u'thomas.schmelzer'
-epub_publisher = u'thomas.schmelzer'
-epub_copyright = u'2013, thomas.schmelzer'
+epub_author = u'Thomas Schmelzer'
+epub_publisher = u'Thomas Schmelzer'
+epub_copyright = u'2013, Thomas Schmelzer'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
