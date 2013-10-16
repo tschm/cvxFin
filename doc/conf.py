@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # cvxFin documentation build configuration file, created by
-# sphinx-quickstart on Mon Oct 14 01:19:35 2013.
+# sphinx-quickstart on Wed Oct 16 22:55:35 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
