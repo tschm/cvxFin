@@ -1,11 +1,7 @@
 from cvxopt import matrix, solvers
 import numpy
 
-"""A pypi demonstration vehicle.
 
-.. moduleauthor:: Andrew Carter <andrew@invalid.com>
-
-"""
 class coneAux:
     def __init__(self):
         self.dims = {'l': 0, 'q': [], 's': []}

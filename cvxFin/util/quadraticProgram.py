@@ -10,7 +10,7 @@ class QuadraticConstraintProgram:
             self.__Q = Q
             self.upper = numpy.infty
 
-        def getCVX(self):
+        def get_cvx(self):
             n = numpy.shape(self.__Q)[0]
             assert self.upper < numpy.infty, "Non-valid bound for quadratic term"
             assert self.upper >= 0, "Non-valid bound for quadratic term"
@@ -29,9 +29,9 @@ class QuadraticConstraintProgram:
         self.qc = QuadraticConstraintProgram.__QuadraticBound(Q)
 
     def solve(self):
-        bx = self.lp.bx.getCVX()
-        bc = self.lp.bc.getCVX()
-        qc = self.qc.getCVX()
+        bx = self.lp.bx.get_cvx()
+        bc = self.lp.bc.get_cvx()
+        qc = self.qc.get_cvx()
 
         X = conelp(self.lp.c)
         X.aux.pushLinConstraint(bx['mat'], bx['vec'])
@@ -43,12 +43,12 @@ class QuadraticConstraintProgram:
 
 class QuadraticObjectiveProgram:
     def __init__(self, Q, p, A):
-        self.lp = LinearProgram(c=p, A=A)
+        self.lp = LinearProgram(c=p, matrix=A)
         self.Q = Q
 
     def solve(self):
-        bx = self.lp.bx.getCVX()
-        bc = self.lp.bc.getCVX()
+        bx = self.lp.bx.get_cvx()
+        bc = self.lp.bc.get_cvx()
 
         X = coneqp(P=self.Q, q=self.lp.c)
 

@@ -11,7 +11,7 @@ def solveLP(c, A, bxl, bxu, bcl, bcu):
     subject to  bcl <= A*x <= bcu
                 bxl <=  x  <= bxu
     """
-    lp = LinearProgram(c=-c, A=A)
+    lp = LinearProgram(c=-c, matrix=A)
     lp.bc.lower = bcl
     lp.bc.upper = bcu
     lp.bx.lower = bxl

@@ -31,8 +31,8 @@ class MarkowitzObjectiveProgram:
 
         X = coneqp(P=Q, q=c)
 
-        bx = self.qp.lp.bx.getCVX()
-        bc = self.qp.lp.bc.getCVX()
+        bx = self.qp.lp.bx.get_cvx()
+        bc = self.qp.lp.bc.get_cvx()
         p = self.penalty.getCVX()
 
         X.aux.pushLinConstraint(numpy.hstack([bx['mat'], numpy.zeros(bx['mat'].shape)]), bx['vec'])
@@ -53,9 +53,9 @@ class MarkowitzConstraintProgram:
 
         X = conelp(c)
 
-        bx = self.qp.lp.bx.getCVX()
-        bc = self.qp.lp.bc.getCVX()
-        qc = self.qp.qc.getCVX()
+        bx = self.qp.lp.bx.get_cvx()
+        bc = self.qp.lp.bc.get_cvx()
+        qc = self.qp.qc.get_cvx()
         p = self.penalty.getCVX()
 
         X.aux.pushLinConstraint(numpy.hstack([bx['mat'], numpy.zeros(bx['mat'].shape)]), bx['vec'])

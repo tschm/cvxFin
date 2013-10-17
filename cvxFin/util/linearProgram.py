@@ -4,15 +4,16 @@ from cvxFin.util.cone import conelp
 
 class LinearProgram:
     class __LinearBound:
-        def __init__(self, A):
-            n = numpy.shape(A)[0]
-            self.lower = numpy.empty(n)
-            self.upper = numpy.empty(n)
-            self.lower.fill(-numpy.inf)
-            self.upper.fill(+numpy.inf)
-            self.__mat = A
+        def __init__(self, matrix):
+            n = numpy.shape(matrix)[0]
+            self.lower = -numpy.inf*numpy.ones(n)
+            self.upper = +numpy.inf*numpy.ones(n)
+            self.__mat = matrix
 
-        def getCVX(self):
+        def get_cvx(self):
+            """
+            Constraint brought into G*x <= h standard form
+            """
             assert len(self.upper) == self.__mat.shape[0], "Inconsistent length for upper bound here"
             assert len(self.lower) == self.__mat.shape[0], "Inconsistent length for lower bound here"
 
@@ -29,14 +30,14 @@ class LinearProgram:
         def eval(self, x):
             return numpy.dot(self.__mat, x)
 
-    def __init__(self, c, A):
+    def __init__(self, c, matrix):
         self.c = c
         self.bx = self.__LinearBound(numpy.eye(len(c), len(c)))
-        self.bc = self.__LinearBound(A)
+        self.bc = self.__LinearBound(matrix)
 
     def solve(self):
-        bx = self.bx.getCVX()
-        bc = self.bc.getCVX()
+        bx = self.bx.get_cvx()
+        bc = self.bc.get_cvx()
 
         X = conelp(self.c)
         X.aux.pushLinConstraint(bx['mat'], bx['vec'])
