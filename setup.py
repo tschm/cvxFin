@@ -6,5 +6,6 @@ setup(
     packages=['cvxFin'],
     url='https://github.com/tschm/cvxFin',
     author='Thomas Schmelzer',
-    author_email='thomas.schmelzer@gmail.com'
+    author_email='thomas.schmelzer@gmail.com',
+    install_requires=['pandas>=0.15.1', 'cvxopt']
 )
