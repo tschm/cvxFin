@@ -1,8 +1,10 @@
-from distutils.core import setup
+#!/usr/bin/env python
+
+from setuptools import setup
 
 setup(
     name='cvxFin',
-    version='1.0',
+    version='0.1.0',
     packages=['cvxFin'],
     url='https://github.com/tschm/cvxFin',
     author='Thomas Schmelzer',
