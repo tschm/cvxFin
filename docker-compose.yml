@@ -1,0 +1,9 @@
+version: '2'
+services:
+  cvxfin:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     volumes:
+        - .:/cvxFin
+     command: python d1.py
