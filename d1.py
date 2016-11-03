@@ -15,7 +15,7 @@ constraints = [0 <= x, x <= 1]
 prob = Problem(objective, constraints)
 
 # The optimal objective is returned by prob.solve().
-result = prob.solve(solver=CVXOPT)
+result = prob.solve()
 # The optimal value for x is stored in x.value.
 print(x.value)
 # The optimal Lagrange multiplier for a constraint

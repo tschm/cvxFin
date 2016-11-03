@@ -1,6 +1,17 @@
-from cvxFin.util.markowitzProgram import MarkowitzConstraintProgram, MarkowitzObjectiveProgram
-from cvxFin.util.quadraticProgram import QuadraticConstraintProgram, QuadraticObjectiveProgram
-from cvxFin.util.linearProgram import LinearProgram
+import cvxpy as cvx
+import numpy as np
+
+def __cvx2np(x):
+    return np.array([x[i].value for i in range(x.size[0])])
+
+
+def __minimize(objective, constraints):
+    cvx.Problem(cvx.Minimize(objective), constraints).solve()
+
+
+def __maximize(objective, constraints):
+    cvx.Problem(cvx.Maximize(objective), constraints).solve()
+
 
 
 def solveLP(c, A, bxl, bxu, bcl, bcu):
@@ -11,13 +22,11 @@ def solveLP(c, A, bxl, bxu, bcl, bcu):
     subject to  bcl <= A*x <= bcu
                 bxl <=  x  <= bxu
     """
-    lp = LinearProgram(c=-c, matrix=A)
-    lp.bc.lower = bcl
-    lp.bc.upper = bcu
-    lp.bx.lower = bxl
-    lp.bx.upper = bxu
-    return lp.solve()[0]
-
+    x = cvx.Variable(len(c))
+    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu]
+    objective = x.T*c
+    __maximize(objective=objective, constraints=constraints)
+    return __cvx2np(x)
 
 def solveQPcon(c, A, Q, qc, bxl, bxu, bcl, bcu):
     """
@@ -28,14 +37,11 @@ def solveQPcon(c, A, Q, qc, bxl, bxu, bcl, bcu):
                   bxl <=  x  <= bxu
                 sqrt(x'*Q*x) <= qc
     """
-    qp = QuadraticConstraintProgram(-c, A, Q)
-    qp.qc.upper = qc
-    qp.lp.bc.lower = bcl
-    qp.lp.bc.upper = bcu
-    qp.lp.bx.lower = bxl
-    qp.lp.bx.upper = bxu
-    return qp.solve()[0]
-
+    x = cvx.Variable(len(c))
+    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu, cvx.quad_form(x, Q) <= qc*qc]
+    objective = x.T*c
+    __maximize(objective=objective, constraints=constraints)
+    return __cvx2np(x)
 
 def solveQPobj(c, A, Q, bxl, bxu, bcl, bcu):
     """
@@ -45,13 +51,11 @@ def solveQPobj(c, A, Q, bxl, bxu, bcl, bcu):
     subject to    bcl <= A*x <= bcu
                   bxl <=  x  <= bxu
     """
-    qp = QuadraticObjectiveProgram(Q=Q, p=-c, A=A)
-    qp.lp.bc.lower = bcl
-    qp.lp.bc.upper = bcu
-    qp.lp.bx.lower = bxl
-    qp.lp.bx.upper = bxu
-    return qp.solve()[0]
-
+    x = cvx.Variable(len(c))
+    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu]
+    objective = x.T*c - 0.5 * cvx.quad_form(x, Q)
+    __maximize(objective=objective, constraints=constraints)
+    return __cvx2np(x)
 
 def solveMarkowitzConstraint(c, A, Q, qc, v, x0, bxl, bxu, bcl, bcu):
     """
@@ -62,15 +66,11 @@ def solveMarkowitzConstraint(c, A, Q, qc, v, x0, bxl, bxu, bcl, bcu):
                   bxl <=  x  <= bxu
                 sqrt(x'*Q*x) <= qc
     """
-    mp = MarkowitzConstraintProgram(-c, A, Q)
-    mp.qp.qc.upper = qc
-    mp.qp.lp.bc.lower = bcl
-    mp.qp.lp.bc.upper = bcu
-    mp.qp.lp.bx.lower = bxl
-    mp.qp.lp.bx.upper = bxu
-    mp.penalty.v = v
-    mp.penalty.x0 = x0
-    return mp.solve()[0]
+    x = cvx.Variable(len(c))
+    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu, cvx.quad_form(x, Q) <= qc*qc]
+    objective = x.T*c - cvx.abs(x - x0).T*v
+    __maximize(objective=objective, constraints=constraints)
+    return __cvx2np(x)
 
 
 def solveMarkowitzObjective(c, A, Q, v, x0, bxl, bxu, bcl, bcu):
@@ -81,11 +81,8 @@ def solveMarkowitzObjective(c, A, Q, v, x0, bxl, bxu, bcl, bcu):
     subject to    bcl <= A*x <= bcu
                   bxl <=  x  <= bxu
     """
-    mp = MarkowitzObjectiveProgram(Q=Q, c=-c, A=A)
-    mp.qp.lp.bc.lower = bcl
-    mp.qp.lp.bc.upper = bcu
-    mp.qp.lp.bx.lower = bxl
-    mp.qp.lp.bx.upper = bxu
-    mp.penalty.v = v
-    mp.penalty.x0 = x0
-    return mp.solve()[0]
+    x = cvx.Variable(len(c))
+    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu, cvx.quad_form(x, Q)]
+    objective = x.T*c -0.5 * cvx.quad_form(x, Q) - cvx.abs(x - x0).T*v
+    __maximize(objective=objective, constraints=constraints)
+    return __cvx2np(x)
