@@ -4,4 +4,6 @@ services:
     build:
        context: .
        dockerfile: Dockerfile-Test
-    command: nosetests
+    command: nosetests --with-coverage --cover-html --cover-erase --cover-package=cvxFin --cover-html-dir=/cvxFin/html-coverage
+    volumes:
+     - ./html-coverage:/cvxFin/html-coverage
