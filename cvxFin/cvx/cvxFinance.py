@@ -1,6 +1,12 @@
 import cvxpy as cvx
-import numpy as np
 import cvxFin.cvx.util as ccu
+
+def __weight(c, bxl, bxu):
+    x = cvx.Variable(c.size)
+    return x, [bxl <= x, x <=bxu]
+
+def __constraint(x, A, bcl, bcu):
+    return [A * x <= bcu, bcl <= A * x]
 
 def solveLP(c, A, bxl, bxu, bcl, bcu):
     """
@@ -10,8 +16,10 @@ def solveLP(c, A, bxl, bxu, bcl, bcu):
     subject to  bcl <= A*x <= bcu
                 bxl <=  x  <= bxu
     """
-    x = cvx.Variable(len(c))
-    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu]
+    x, constraints = __weight(c, bxl, bxu)
+
+    constraints = constraints + __constraint(x, A, bcl, bcu)
+
     objective = x.T*c
     ccu.maximize(objective=objective, constraints=constraints)
     return ccu.cvx2np(x)
@@ -25,8 +33,8 @@ def solveQPcon(c, A, Q, qc, bxl, bxu, bcl, bcu):
                   bxl <=  x  <= bxu
                 sqrt(x'*Q*x) <= qc
     """
-    x = cvx.Variable(len(c))
-    constraints = [A*x <= bcu, bcl <= A*x, bxl <= x, x <= bxu, cvx.quad_form(x, Q) <= qc*qc]
+    x, constraints = __weight(c, bxl, bxu)
+    constraints = constraints + __constraint(x, A, bcl, bcu) + [cvx.quad_form(x, Q) <= qc*qc]
     objective = x.T*c
     ccu.maximize(objective=objective, constraints=constraints)
     return ccu.cvx2np(x)

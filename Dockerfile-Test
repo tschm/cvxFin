@@ -11,4 +11,5 @@ RUN conda install -y -c cvxgrp cvxpy
 
 ADD ./cvxFin /cvxFin/cvxFin
 ADD ./test   /cvxFin/test
+
 WORKDIR cvxFin

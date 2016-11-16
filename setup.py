@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='cvxFin',
-    version='0.2.0',
+    version='0.2.1',
     packages=['cvxFin'],
     url='https://github.com/tschm/cvxFin',
     author='Thomas Schmelzer',
