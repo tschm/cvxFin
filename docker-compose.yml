@@ -1,7 +1,9 @@
-version: '2'
+version: '3.6'
 services:
   cvxfin:
      build:
        context: .
        dockerfile: Dockerfile
+       target: builder
+
      command: python d1.py

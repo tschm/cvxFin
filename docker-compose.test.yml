@@ -1,9 +1,14 @@
-version: '2'
+version: '3.6'
 services:
-  sut:
+  test:
     build:
        context: .
-       dockerfile: Dockerfile-Test
-    command: nosetests --with-coverage --cover-html --cover-erase --cover-package=cvxFin --cover-html-dir=/cvxFin/html-coverage
+       dockerfile: Dockerfile
+       target: test
+
     volumes:
-     - ./html-coverage:/cvxFin/html-coverage
+      - ./cvxFin:/cvx/cvxFin:ro
+      - ./test:/cvx/test:ro
+      - ./artifacts:/cvx/artifacts
+      - ./source:/source
+      - ./helpers:/opt/.pycharm_helpers/pycharm:ro
