@@ -7,3 +7,21 @@ services:
        target: builder
 
      command: python d1.py
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: binder/Dockerfile
+
+  test:
+    build:
+       context: .
+       dockerfile: Dockerfile
+       target: test
+
+    volumes:
+      - ./cvxFin:/cvx/cvxFin:ro
+      - ./test:/cvx/test:ro
+      - ./artifacts:/cvx/artifacts
+      - ./source:/source
+      - ./helpers:/opt/.pycharm_helpers/pycharm:ro

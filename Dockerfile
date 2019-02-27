@@ -7,7 +7,7 @@ MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"
 RUN conda install -q -y pandas=0.24.1 scikit-learn
 
 # install the new cvxpy?
-RUN conda install -c conda-forge cvxpy=1.0.14
+RUN conda install -q -y -c conda-forge cvxpy=1.0.14
 
 ADD ./cvxFin /cvx/cvxFin
 WORKDIR cvx
