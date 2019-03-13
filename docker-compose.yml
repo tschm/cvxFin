@@ -12,6 +12,10 @@ services:
     build:
       context: .
       dockerfile: binder/Dockerfile
+    ports:
+      - ${PORT}:8888
+    volumes:
+      - ./work:/home/${NB_USER}/work
 
   test:
     build:
