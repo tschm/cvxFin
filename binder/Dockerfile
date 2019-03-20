@@ -1,13 +1,16 @@
 # Set the base image to Ubuntu
-FROM lobnek/jupyter:v2.3
+FROM lobnek/jupyter:v2.5
 
 # File Author / Maintainer
 MAINTAINER Thomas Schmelzer "thomas.schmelzer@lobnek.com"
 
-# install cvxpy
+# install scikit
 USER root
-RUN conda install -c conda-forge scikit-learn
+
+RUN conda install -c conda-forge scikit-learn && \
+    conda clean --all
+
 USER $NB_USER
 
-COPY ./work ${HOME}/work
+COPY ./work ${WORK}
 

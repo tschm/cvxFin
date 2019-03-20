@@ -1,6 +1,6 @@
 from sklearn.linear_model import lasso_path
 
-import cvxFin.cvx.util as ccu
+import cvxFin.util as ccu
 import cvxpy as cvx
 
 

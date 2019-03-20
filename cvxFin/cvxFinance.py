@@ -1,5 +1,5 @@
 import cvxpy as cvx
-import cvxFin.cvx.util as ccu
+import cvxFin.util as ccu
 
 def __weight(c, bxl, bxu):
     x = cvx.Variable(c.size)
