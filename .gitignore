@@ -1,5 +1,6 @@
 .idea
 env
+artifacts
 
 html-coverage
 __pycache__
