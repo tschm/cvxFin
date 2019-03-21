@@ -11,15 +11,14 @@ RUN conda install -q -y -c conda-forge pandas=0.24.1 scikit-learn cvxpy=1.0.14 &
 #### Here the test-configuration
 FROM builder as test
 
-
 COPY . /tmp/cvx
+
 RUN pip install --no-cache-dir /tmp/cvx && \
     rm -rf /tmp/cvx
 
 # We install flask here to test some
 RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx
 
-#COPY ./test            /cvx/test
 COPY ./sphinx.sh       /cvx/sphinx.sh
 
 WORKDIR cvx

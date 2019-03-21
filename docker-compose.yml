@@ -6,8 +6,6 @@ services:
        dockerfile: Dockerfile
        target: builder
 
-     command: python d1.py
-
   jupyter:
     build:
       context: .
@@ -24,7 +22,7 @@ services:
        target: test
 
     volumes:
-      #- ./cvxFin:/cvx/cvxFin:ro
+      - ./cvxFin:/cvx/cvxFin:ro
       - ./test:/cvx/test:ro
       - ./artifacts:/cvx/artifacts
       - ./source:/source
