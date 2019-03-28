@@ -1,16 +1,18 @@
 # Set the base image to Ubuntu
-FROM lobnek/jupyter:v2.5
+FROM lobnek/jupyter:v2.8
 
 # File Author / Maintainer
 MAINTAINER Thomas Schmelzer "thomas.schmelzer@lobnek.com"
 
 # install scikit
-USER root
+#USER root
 
-RUN conda install -c conda-forge scikit-learn && \
-    conda clean --all
+RUN pip install --no-cache-dir scikit-learn
 
-USER $NB_USER
+#RUN conda install -c conda-forge scikit-learn && \
+#    conda clean --all
 
-COPY ./work ${WORK}
+#USER $NB_USER
+
+COPY --chown=beakerx:beakerx ./work ${WORK}
 
