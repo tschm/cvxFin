@@ -43,6 +43,10 @@ test:
 
 teamcity: test graph doc
 
+jupyter: build
+	echo "http://localhost:${PORT}"
+	docker-compose up jupyter
+
 graph: test
 	mkdir -p ${PWD}/artifacts/graph
 
