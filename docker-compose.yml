@@ -13,17 +13,4 @@ services:
     ports:
       - ${PORT}:8888
     volumes:
-      - ./work:/home/${NB_USER}/work
-
-  test:
-    build:
-       context: .
-       dockerfile: Dockerfile
-       target: test
-
-    volumes:
-      - ./cvxFin:/cvx/cvxFin:ro
-      - ./test:/cvx/test:ro
-      - ./artifacts:/cvx/artifacts
-      - ./source:/source
-      - ./helpers:/opt/.pycharm_helpers/pycharm:ro
+      - ./work:${WORK}

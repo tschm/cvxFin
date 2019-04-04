@@ -19,8 +19,6 @@ RUN pip install --no-cache-dir /tmp/cvx && \
 # We install flask here to test some
 RUN pip install --no-cache-dir httpretty pytest pytest-cov pytest-html sphinx
 
-COPY ./sphinx.sh       /cvx/sphinx.sh
-
 WORKDIR cvx
 
 CMD py.test --cov=cvxFin  --cov-report html:artifacts/html-coverage --cov-report term --html=artifacts/html-report/report.html test

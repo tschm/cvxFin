@@ -4,15 +4,13 @@ FROM lobnek/jupyter:v2.8
 # File Author / Maintainer
 MAINTAINER Thomas Schmelzer "thomas.schmelzer@lobnek.com"
 
-# install scikit
-#USER root
 
 RUN pip install --no-cache-dir scikit-learn
 
-#RUN conda install -c conda-forge scikit-learn && \
-#    conda clean --all
+COPY --chown=beakerx:beakerx . /tmp/cvx
 
-#USER $NB_USER
+RUN pip install --no-cache-dir /tmp/cvx && \
+    rm -r /tmp/cvx
 
 COPY --chown=beakerx:beakerx ./work ${WORK}
 
