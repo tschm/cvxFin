@@ -1,11 +1,5 @@
 version: '3.6'
 services:
-  cvxfin:
-     build:
-       context: .
-       dockerfile: Dockerfile
-       target: builder
-
   jupyter:
     build:
       context: .

@@ -36,16 +36,3 @@ def solvePenalizedLSQ(A, b, eps, B, c):
     print(alphas_lasso)
     print(coefs_lasso)
 
-if __name__ == '__main__':
-    import numpy
-
-    A = numpy.random.randn(10, 3)
-    b = numpy.random.randn(10)
-
-    print(solveLASSO(b, A, numpy.eye(3, 3), bxl=-10 * numpy.ones(3), bxu=10 * numpy.ones(3), bcl=-20 * numpy.ones(3),
-                   bcu=20 * numpy.ones(3), tau=0.0))
-
-    print(numpy.linalg.lstsq(A, b)[0])
-
-
-

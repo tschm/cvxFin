@@ -1,15 +1,11 @@
 # Set the base image to Ubuntu
-FROM continuumio/miniconda3 as builder
+FROM continuumio/miniconda3
 
 # File Author / Maintainer
 MAINTAINER Thomas Schmelzer "thomas.schmelzer@gmail.com"
 
 RUN conda install -q -y -c conda-forge pandas=0.24.1 scikit-learn cvxpy=1.0.14 && \
     conda clean --all
-
-
-#### Here the test-configuration
-FROM builder as test
 
 COPY . /tmp/cvx
 

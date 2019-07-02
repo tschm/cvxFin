@@ -7,7 +7,6 @@ services:
        target: test
 
     volumes:
-      #- ./cvxFin:/cvx/cvxFin:ro
       - ./test:/cvx/test:ro
       - ./artifacts:/cvx/artifacts
       - ./source:/source:ro

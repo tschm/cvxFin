@@ -34,7 +34,6 @@ help:
 
 build:
 	docker-compose build jupyter
-	docker-compose build cvxfin
 
 test:
 	mkdir -p artifacts
@@ -74,3 +73,7 @@ hub: tag
 	docker tag ${IMAGE}:latest ${IMAGE}:${PROJECT_VERSION}
 	docker push ${IMAGE}:${PROJECT_VERSION}
 	docker rmi -f ${IMAGE}:${PROJECT_VERSION}
+
+slides:
+	docker-compose up -d
+	python slides.py
