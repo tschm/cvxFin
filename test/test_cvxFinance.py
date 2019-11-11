@@ -70,7 +70,7 @@ def testMarkowitzObjective(c, A, Q, bxl, bxu, bcl, bcu):
     x0 = np.array([5.0, 1.0, 10.0, 2.0])
 
     x = Fin.solveMarkowitzObjective(c=c, A=A, Q=Q, v=v1, x0=x0, bxl=bxl, bxu=bxu, bcl=bcl, bcu=bcu)
-    npTest.assert_array_almost_equal(x, np.array([5.188675e+00, 4.372241e-09, 7.216987e+00, 6.799978e-10]))
+    npTest.assert_array_almost_equal(x, np.array([5.188679e+00, 6.545244e-08, 7.216981e+00, 1.297973e-08]))
 
 
 def testQuadraticObjective(c, A, Q, bxl, bxu, bcl, bcu):
