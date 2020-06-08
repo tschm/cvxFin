@@ -3,13 +3,10 @@
 # Ignore Everything
 **
 
-!sphinx.sh
-
-!work
 !cvxFin
 !test
 !setup.py
+!requirements.txt
 
 **/__pycache__
 **/*.pyc
-.ipynb_checkpoints
