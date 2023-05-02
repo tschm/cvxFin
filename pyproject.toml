@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cvxFin"
+version = "0.0.0"
+description = "Good old faithful portfolio construction"
+authors = ["Thomas Schmelzer"]
+readme = "README.md"
+packages = [{include = "cvx"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^2.0.0"
+cvxpy = "*"
+scikit-learn = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "7.1.3"
+pytest-cov = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

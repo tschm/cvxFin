@@ -1,3 +1,0 @@
-pandas==0.25.3
-cvxpy==1.0.31
-scikit-learn
