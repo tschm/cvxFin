@@ -1,7 +1,4 @@
 .idea
-env
-artifacts
-
 html-coverage
 __pycache__
 .venv
