@@ -1,5 +1,5 @@
 import cvxpy as cvx
-import cvxFin.util as ccu
+import cvx.finance.util as ccu
 
 
 def __weight(c, bxl, bxu):

@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import numpy.testing as npTest
 
-import cvxFin.cvxFinance as Fin
+import cvx.finance.Finance as Fin
 
 
 @pytest.fixture()
