@@ -5,3 +5,4 @@ artifacts
 html-coverage
 __pycache__
 .venv
+.pytest_cache
