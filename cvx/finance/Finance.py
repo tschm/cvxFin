@@ -25,7 +25,9 @@ def solveLP(c, A, bxl, bxu, bcl, bcu):
 
     objective = x.T * c
     print(ccu.installed_solvers())
-    ccu.maximize(objective=objective, constraints=constraints, verbose=True, solver=cvx.ECOS_BB)
+    ccu.maximize(
+        objective=objective, constraints=constraints, verbose=True, solver=cvx.ECOS_BB
+    )
     return x.value
 
 
@@ -39,7 +41,9 @@ def solveQPcon(c, A, Q, qc, bxl, bxu, bcl, bcu):
                 sqrt(x'*Q*x) <= qc
     """
     x, constraints = __weight(c, bxl, bxu)
-    constraints = constraints + __constraint(x, A, bcl, bcu) + [cvx.quad_form(x, Q) <= qc * qc]
+    constraints = (
+        constraints + __constraint(x, A, bcl, bcu) + [cvx.quad_form(x, Q) <= qc * qc]
+    )
     objective = x.T * c
     ccu.maximize(objective=objective, constraints=constraints)
     return x.value
@@ -70,7 +74,13 @@ def solveMarkowitzConstraint(c, A, Q, qc, v, x0, bxl, bxu, bcl, bcu):
                 sqrt(x'*Q*x) <= qc
     """
     x = cvx.Variable(len(c))
-    constraints = [A * x <= bcu, bcl <= A * x, bxl <= x, x <= bxu, cvx.quad_form(x, Q) <= qc * qc]
+    constraints = [
+        A * x <= bcu,
+        bcl <= A * x,
+        bxl <= x,
+        x <= bxu,
+        cvx.quad_form(x, Q) <= qc * qc,
+    ]
     objective = x.T * c - cvx.abs(x - x0).T * v
     ccu.maximize(objective=objective, constraints=constraints)
     return x.value
