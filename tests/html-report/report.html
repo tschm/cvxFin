@@ -253,9 +253,9 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 25-Aug-2023 at 15:13:21 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <p>Report generated on 25-Aug-2023 at 15:20:11 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
     <h2>Summary</h2>
-    <p>5 tests ran in 1.00 seconds. </p>
+    <p>5 tests ran in 0.89 seconds. </p>
     <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">5 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
@@ -270,33 +270,6 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
-          <td class="col-duration">0.03</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
-          <td class="col-duration">0.03</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testQuadraticObjective</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
           <td class="col-name">tests/test_cvxFinance.py::testLinear</td>
           <td class="col-duration">0.02</td>
           <td class="col-links"></td></tr>
@@ -307,38 +280,47 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
                                      CVXPY                                     
                                      v1.3.2                                    
 ===============================================================================
-(CVXPY) Aug 25 03:13:21 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Aug 25 03:13:21 PM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Aug 25 03:13:21 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Aug 25 03:13:21 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+(CVXPY) Aug 25 03:20:10 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 25 03:20:10 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 25 03:20:10 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 25 03:20:10 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
 -------------------------------------------------------------------------------
                                   Compilation                                  
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Compiling problem (target solver=ECOS_BB).
-(CVXPY) Aug 25 03:13:21 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction FlipObjective
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction Dcp2Cone
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction CvxAttr2Constr
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction ConeMatrixStuffing
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction ECOS_BB
-(CVXPY) Aug 25 03:13:21 PM: Finished problem compilation (took 1.329e-02 seconds).
+(CVXPY) Aug 25 03:20:10 PM: Compiling problem (target solver=ECOS_BB).
+(CVXPY) Aug 25 03:20:10 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction FlipObjective
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction Dcp2Cone
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction ECOS_BB
+(CVXPY) Aug 25 03:20:10 PM: Finished problem compilation (took 1.373e-02 seconds).
 -------------------------------------------------------------------------------
                                 Numerical solver                               
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Invoking solver ECOS_BB  to obtain a solution.
+(CVXPY) Aug 25 03:20:10 PM: Invoking solver ECOS_BB  to obtain a solution.
 -------------------------------------------------------------------------------
                                     Summary                                    
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Problem status: optimal
-(CVXPY) Aug 25 03:13:21 PM: Optimal value: 8.333e+01
-(CVXPY) Aug 25 03:13:21 PM: Compilation took 1.329e-02 seconds
-(CVXPY) Aug 25 03:13:21 PM: Solver (including time spent in interface) took 2.356e-04 seconds
+(CVXPY) Aug 25 03:20:10 PM: Problem status: optimal
+(CVXPY) Aug 25 03:20:10 PM: Optimal value: 8.333e+01
+(CVXPY) Aug 25 03:20:10 PM: Compilation took 1.373e-02 seconds
+(CVXPY) Aug 25 03:20:10 PM: Solver (including time spent in interface) took 1.984e-04 seconds
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
+          <td class="col-duration">0.02</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
           <td class="col-name">tests/test_cvxFinance.py::testMarkowitzObjective</td>
-          <td class="col-duration">0.03</td>
+          <td class="col-duration">0.04</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -346,25 +328,25 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
                                      CVXPY                                     
                                      v1.3.2                                    
 ===============================================================================
-(CVXPY) Aug 25 03:13:21 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Aug 25 03:13:21 PM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Aug 25 03:13:21 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Aug 25 03:13:21 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+(CVXPY) Aug 25 03:20:10 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 25 03:20:10 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 25 03:20:10 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 25 03:20:10 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
 -------------------------------------------------------------------------------
                                   Compilation                                  
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Compiling problem (target solver=ECOS).
-(CVXPY) Aug 25 03:13:21 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction FlipObjective
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction Dcp2Cone
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction CvxAttr2Constr
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction ConeMatrixStuffing
-(CVXPY) Aug 25 03:13:21 PM: Applying reduction ECOS
-(CVXPY) Aug 25 03:13:21 PM: Finished problem compilation (took 2.655e-02 seconds).
+(CVXPY) Aug 25 03:20:10 PM: Compiling problem (target solver=ECOS).
+(CVXPY) Aug 25 03:20:10 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction FlipObjective
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction Dcp2Cone
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 25 03:20:10 PM: Applying reduction ECOS
+(CVXPY) Aug 25 03:20:10 PM: Finished problem compilation (took 2.992e-02 seconds).
 -------------------------------------------------------------------------------
                                 Numerical solver                               
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Invoking solver ECOS  to obtain a solution.
+(CVXPY) Aug 25 03:20:10 PM: Invoking solver ECOS  to obtain a solution.
 
 ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
 
@@ -382,7 +364,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
 10  -8.333e+01  -8.333e+01  +5e-07  2e-15  5e-10  5e-09  3e-08  0.9890  5e-02   1  0  0 |  0  0
 
 OPTIMAL (within feastol=4.6e-10, reltol=6.2e-09, abstol=5.1e-07).
-Runtime: 0.000153 seconds.
+Runtime: 0.000132 seconds.
 
 
 ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
@@ -460,8 +442,26 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
 69  -1.672e+00  -1.672e+00  +1e-06  9e-15  -------------------------------------------------------------------------------
                                     Summary                                    
 -------------------------------------------------------------------------------
-(CVXPY) Aug 25 03:13:21 PM: Problem status: optimal_inaccurate
-(CVXPY) Aug 25 03:13:21 PM: Optimal value: 1.672e+00
-(CVXPY) Aug 25 03:13:21 PM: Compilation took 2.655e-02 seconds
-(CVXPY) Aug 25 03:13:21 PM: Solver (including time spent in interface) took 1.440e-03 seconds
-<br/></div></td></tr></tbody></table></body></html>
+(CVXPY) Aug 25 03:20:10 PM: Problem status: optimal_inaccurate
+(CVXPY) Aug 25 03:20:10 PM: Optimal value: 1.672e+00
+(CVXPY) Aug 25 03:20:10 PM: Compilation took 2.992e-02 seconds
+(CVXPY) Aug 25 03:20:10 PM: Solver (including time spent in interface) took 1.017e-03 seconds
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
+          <td class="col-duration">0.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testQuadraticObjective</td>
+          <td class="col-duration">0.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
