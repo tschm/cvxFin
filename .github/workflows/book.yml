@@ -10,19 +10,16 @@ jobs:
   sphinx:
     runs-on: "ubuntu-latest"
     steps:
-      #- uses: actions/checkout@v3
       - uses: cvxgrp/.github/actions/sphinx@main
 
   test:
     runs-on: "ubuntu-latest"
     steps:
-      #- uses: actions/checkout@v3
       - uses: cvxgrp/.github/actions/test@main
 
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v3
       - uses: cvxgrp/.github/actions/jupyter@main
 
   book:
