@@ -42,6 +42,9 @@ jobs:
         with:
           path: .book
 
+      - name: Create .nojekyll
+        run: touch .book/.nojekyll
+
       - name: GitHub Pages action
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
