@@ -33,20 +33,7 @@ jobs:
       contents: write
 
     steps:
+      - uses: cvxgrp/.github/actions/book@main
 
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: .book
-
-      - name: Create .nojekyll
-        run: touch .book/.nojekyll
-
-      - name: GitHub Pages action
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          branch: gh-pages          # The branch the action should deploy to.
-          folder: .book              # The folder the action should deploy.
+      #- name: Check out repository
+      #  uses: actions/checkout@v3
