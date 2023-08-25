@@ -1,0 +1,30 @@
+:py:mod:`finance.util`
+======================
+
+.. py:module:: finance.util
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   finance.util.minimize
+   finance.util.maximize
+   finance.util.installed_solvers
+
+
+
+.. py:function:: minimize(objective, constraints, verbose=False, solver=cvx.ECOS)
+
+
+.. py:function:: maximize(objective, constraints, verbose=False, solver=cvx.ECOS)
+
+
+.. py:function:: installed_solvers()
+
+

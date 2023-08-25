@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>report.html</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) { // eslint-disable-line no-redeclare
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function findAll(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sortColumn(elem) {
+    toggleSortStates(elem);
+    const colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    let key;
+    if (elem.classList.contains('result')) {
+        key = keyResult;
+    } else if (elem.classList.contains('links')) {
+        key = keyLink;
+    } else {
+        key = keyAlpha;
+    }
+    sortTable(elem, key(colIndex));
+}
+
+function showAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(showExtras);
+}
+
+function hideAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(hideExtras);
+}
+
+function showExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.remove('collapsed');
+    expandcollapse.classList.remove('expander');
+    expandcollapse.classList.add('collapser');
+}
+
+function hideExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.add('collapsed');
+    expandcollapse.classList.remove('collapser');
+    expandcollapse.classList.add('expander');
+}
+
+function showFilters() {
+    let visibleString = getQueryParameter('visible') || 'all';
+    visibleString = visibleString.toLowerCase();
+    const checkedItems = visibleString.split(',');
+
+    const filterItems = document.getElementsByClassName('filter');
+    for (let i = 0; i < filterItems.length; i++) {
+        filterItems[i].hidden = false;
+
+        if (visibleString != 'all') {
+            filterItems[i].checked = checkedItems.includes(filterItems[i].getAttribute('data-test-result'));
+            filterTable(filterItems[i]);
+        }
+    }
+}
+
+function addCollapse() {
+    // Add links for show/hide all
+    const resulttable = find('table#results-table');
+    const showhideall = document.createElement('p');
+    showhideall.innerHTML = '<a href="javascript:showAllExtras()">Show all details</a> / ' +
+                            '<a href="javascript:hideAllExtras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    findAll('.col-result').forEach(function(elem) {
+        const collapsed = getQueryParameter('collapsed') || 'Passed';
+        const extras = elem.parentNode.nextElementSibling;
+        const expandcollapse = document.createElement('span');
+        if (extras.classList.contains('collapsed')) {
+            expandcollapse.classList.add('expander');
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add('collapsed');
+            expandcollapse.classList.add('expander');
+        } else {
+            expandcollapse.classList.add('collapser');
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener('click', function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains('collapsed')) {
+                showExtras(event.currentTarget);
+            } else {
+                hideExtras(event.currentTarget);
+            }
+        });
+    });
+}
+
+function getQueryParameter(name) {
+    const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () { // eslint-disable-line no-unused-vars
+    resetSortHeaders();
+
+    addCollapse();
+
+    showFilters();
+
+    sortColumn(find('.initial-sort'));
+
+    findAll('.sortable').forEach(function(elem) {
+        elem.addEventListener('click',
+            function() {
+                sortColumn(elem);
+            }, false);
+    });
+}
+
+function sortTable(clicked, keyFunc) {
+    const rows = findAll('.results-table-row');
+    const reversed = !clicked.classList.contains('asc');
+    const sortedRows = sort(rows, keyFunc, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    const thead = document.getElementById('results-table-head');
+    document.getElementById('results-table').remove();
+    const parent = document.createElement('table');
+    parent.id = 'results-table';
+    parent.appendChild(thead);
+    sortedRows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName('BODY')[0].appendChild(parent);
+}
+
+function sort(items, keyFunc, reversed) {
+    const sortArray = items.map(function(item, i) {
+        return [keyFunc(item), i];
+    });
+
+    sortArray.sort(function(a, b) {
+        const keyA = a[0];
+        const keyB = b[0];
+
+        if (keyA == keyB) return 0;
+
+        if (reversed) {
+            return keyA < keyB ? 1 : -1;
+        } else {
+            return keyA > keyB ? 1 : -1;
+        }
+    });
+
+    return sortArray.map(function(item) {
+        const index = item[1];
+        return items[index];
+    });
+}
+
+function keyAlpha(colIndex) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[colIndex].firstChild.data.toLowerCase();
+    };
+}
+
+function keyLink(colIndex) {
+    return function(elem) {
+        const dataCell = elem.childNodes[1].childNodes[colIndex].firstChild;
+        return dataCell == null ? '' : dataCell.innerText.toLowerCase();
+    };
+}
+
+function keyResult(colIndex) {
+    return function(elem) {
+        const strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+            'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[colIndex].firstChild.data);
+    };
+}
+
+function resetSortHeaders() {
+    findAll('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    findAll('.sortable').forEach(function(elem) {
+        const icon = document.createElement('div');
+        icon.className = 'sort-icon';
+        icon.textContent = 'vvv';
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove('desc', 'active');
+        elem.classList.add('asc', 'inactive');
+    });
+}
+
+function toggleSortStates(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        resetSortHeaders();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function isAllRowsHidden(value) {
+    return value.hidden == false;
+}
+
+function filterTable(elem) { // eslint-disable-line no-unused-vars
+    const outcomeAtt = 'data-test-result';
+    const outcome = elem.getAttribute(outcomeAtt);
+    const classOutcome = outcome + ' results-table-row';
+    const outcomeRows = document.getElementsByClassName(classOutcome);
+
+    for(let i = 0; i < outcomeRows.length; i++){
+        outcomeRows[i].hidden = !elem.checked;
+    }
+
+    const rows = findAll('.results-table-row').filter(isAllRowsHidden);
+    const allRowsHidden = rows.length == 0 ? true : false;
+    const notFoundMessage = document.getElementById('not-found-message');
+    notFoundMessage.hidden = !allRowsHidden;
+}
+</script>
+    <h1>report.html</h1>
+    <p>Report generated on 25-Aug-2023 at 07:14:18 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <h2>Summary</h2>
+    <p>5 tests ran in 0.71 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">5 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable" col="duration">Duration</th>
+          <th class="sortable links" col="links">Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
+          <td class="col-duration">0.02</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
+          <td class="col-duration">0.02</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testQuadraticObjective</td>
+          <td class="col-duration">0.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzObjective</td>
+          <td class="col-duration">0.02</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>===============================================================================
+                                     CVXPY                                     
+                                     v1.3.2                                    
+===============================================================================
+(CVXPY) Aug 25 07:14:17 AM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 25 07:14:17 AM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 25 07:14:17 AM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 25 07:14:17 AM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:17 AM: Compiling problem (target solver=ECOS).
+(CVXPY) Aug 25 07:14:17 AM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction FlipObjective
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction Dcp2Cone
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction ECOS
+(CVXPY) Aug 25 07:14:17 AM: Finished problem compilation (took 1.567e-02 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:17 AM: Invoking solver ECOS  to obtain a solution.
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:17 AM: Problem status: optimal_inaccurate
+(CVXPY) Aug 25 07:14:17 AM: Optimal value: 1.672e+00
+(CVXPY) Aug 25 07:14:17 AM: Compilation took 1.567e-02 seconds
+(CVXPY) Aug 25 07:14:17 AM: Solver (including time spent in interface) took 4.723e-04 seconds
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testLinear</td>
+          <td class="col-duration">0.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>[&#x27;ECOS&#x27;, &#x27;ECOS_BB&#x27;, &#x27;OSQP&#x27;, &#x27;SCIPY&#x27;, &#x27;SCS&#x27;]
+===============================================================================
+                                     CVXPY                                     
+                                     v1.3.2                                    
+===============================================================================
+(CVXPY) Aug 25 07:14:17 AM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 25 07:14:17 AM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 25 07:14:17 AM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 25 07:14:17 AM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:17 AM: Compiling problem (target solver=ECOS_BB).
+(CVXPY) Aug 25 07:14:17 AM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction FlipObjective
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction Dcp2Cone
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 25 07:14:17 AM: Applying reduction ECOS_BB
+(CVXPY) Aug 25 07:14:18 AM: Finished problem compilation (took 8.802e-03 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:18 AM: Invoking solver ECOS_BB  to obtain a solution.
+
+ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
+
+It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
+ 0  -1.200e+06  -1.018e+07  +2e+07  2e-01  5e-01  1e+00  9e+05    ---    ---    1  1  - |  -  - 
+ 1  -9.357e+04  -5.833e+06  +1e+07  2e-01  3e-01  4e+05  5e+05  0.7905  4e-01   1  1  1 |  0  0
+ 2  +2.095e+05  -4.095e+05  +2e+06  2e-02  3e-02  7e+04  7e+04  0.9150  6e-02   1  1  0 |  0  0
+ 3  +1.278e+04  -5.539e+03  +5e+04  5e-04  4e-04  1e+03  2e+03  0.9686  2e-03   1  0  0 |  0  0
+ 4  +2.108e+02  -2.774e+02  +1e+03  1e-05  7e-05  3e+01  6e+01  0.9735  1e-04   1  0  0 |  0  0
+ 5  -1.462e+01  -1.237e+02  +4e+02  3e-06  2e-05  7e+00  2e+01  0.8700  2e-01   1  1  1 |  0  0
+ 6  -5.800e+00  -1.163e+02  +3e+02  3e-06  1e-05  8e+00  1e+01  0.1281  7e-01   1  1  1 |  0  0
+ 7  -2.624e+01  -7.096e+01  +2e+02  1e-06  6e-06  4e+00  7e+00  0.9809  5e-01   1  1  1 |  0  0
+ 8  +4.883e+00  -6.375e+01  +1e+02  2e-06  4e-06  8e+00  6e+00  0.3754  7e-01   1  1  1 |  0  0
+ 9  -1.241e+01  -2.121e+01  +2e+01  3e-07  5e-07  9e-01  8e-01  0.9890  1e-01   1  1  1 |  0  0
+10  -6.976e+00  -9.170e+00  +4e+00  9e-08  1e-07  4e-01  2e-01  0.8491  6e-02   1  1  1 |  0  0
+11  -4.438e+00  -5.936e+00  +2e+00  7e-08  8e-08  3e-01  9e-02  0.6679  3e-01   1  1  1 |  0  0
+12  -2.061e+00  -2.193e+00  +2e-01  6e-09  9e-09  3e-02  8e-03  0.9513  4e-02   1  1  0 |  0  0
+13  -1.766e+00  -1.805e+00  +5e-02  2e-09  3e-09  9e-03  2e-03  0.8182  1e-01   1  1  1 |  0  0
+14  -1.674e+00  -1.674e+00  +8e-04  3e-11  9e-11  1e-04  4e-05  0.9838  1e-04   1  1  1 |  0  0
+15  -1.672e+00  -1.672e+00  +2e-05  7e-13  1e-11  3e-06  8e-07  0.9783  1e-04   1  1  1 |  0  0
+16  -1.672e+00  -1.672e+00  +1e-06  4e-14  7e-12  2e-07  5e-08  0.9431  2e-03   1  1  1 |  0  0
+17  -1.672e+00  -1.672e+00  +3e-07  4e-15  1e-11  2e-08  1e-08  0.9890  8e-02   1  1  1 |  0  0
+18  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-11  3e-08  3e-08  0.9890  6e-01   1  1  1 |  0  0
+19  -1.672e+00  -1.672e+00  +6e-07  4e-14  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+20  -1.672e+00  -1.672e+00  +3e-07  1e-14  4e-12  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
+21  -1.672e+00  -1.672e+00  +2e-06  4e-14  1e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
+22  -1.672e+00  -1.672e+00  +7e-07  7e-14  1e-12  1e-07  3e-08  0.9890  3e-01   1  1  1 |  0  0
+23  -1.672e+00  -1.672e+00  +5e-07  1e-13  6e-11  3e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+24  -1.672e+00  -1.672e+00  +3e-07  5e-14  2e-11  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
+25  -1.672e+00  -1.672e+00  +2e-06  1e-13  4e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
+26  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-12  9e-08  3e-08  0.9890  2e-01   1  1  1 |  0  0
+27  -1.672e+00  -1.672e+00  +6e-07  2e-14  7e-12  3e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+28  -1.672e+00  -1.672e+00  +4e-07  7e-15  3e-12  4e-08  2e-08  0.9890  4e-01   1  1  1 |  0  0
+29  -1.672e+00  -1.672e+00  +2e-06  3e-13  3e-09  5e-08  7e-08  0.9890  6e-01   1  1  1 |  0  0
+30  -1.672e+00  -1.672e+00  +5e-08  7e-15  6e-11  5e-09  2e-09  0.9890  1e-02   1  1  1 |  0  0
+31  -1.672e+00  -1.672e+00  +2e-06  2e-13  4e-11  9e-09  9e-08  0.9890  7e-01   1  1  1 |  0  0
+32  -1.672e+00  -1.672e+00  +2e-08  2e-15  5e-13  1e-10  1e-09  0.9890  1e-04   1  1  1 |  0  0
+33  -1.672e+00  -1.672e+00  +4e-06  4e-10  5e-13  5e-09  2e-07  0.9890  9e-01   1  1  1 |  0  0
+Unreliable search direction detected, recovering best iterate (32) and stopping.
+
+Close to OPTIMAL (within feastol=4.6e-13, reltol=1.4e-08, abstol=2.3e-08).
+Runtime: 0.000426 seconds.
+
+
+ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
+
+It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
+ 0  -1.398e+06  -1.084e+07  +2e+07  2e-01  5e-09  1e+00  1e+06    ---    ---    1  1  - |  -  - 
+ 1  -8.764e+05  -4.995e+06  +9e+06  1e-01  5e-03  2e+05  6e+05  0.7010  2e-01   0  0  0 |  0  0-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Aug 25 07:14:18 AM: Problem status: optimal
+(CVXPY) Aug 25 07:14:18 AM: Optimal value: 8.333e+01
+(CVXPY) Aug 25 07:14:18 AM: Compilation took 8.802e-03 seconds
+(CVXPY) Aug 25 07:14:18 AM: Solver (including time spent in interface) took 1.829e-04 seconds
+<br/></div></td></tr></tbody></table></body></html>

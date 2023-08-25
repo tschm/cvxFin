@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pandas as pd
+pd.options.plotting.backend = "plotly"
+
+import yfinance as yf
+
+from cvx.simulator.builder import builder
+from cvx.simulator.grid import resample_index
+
+# Get rid of findfont: Font family 'Arial' not found.
+# when running a remote notebook on Jupyter Server on Ubuntu Linux server
+import logging
+logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[1], line 2[0m
+[1;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
+[0;32m----> 2[0m [43mpd[49m[38;5;241;43m.[39;49m[43moptions[49m[38;5;241;43m.[39;49m[43mplotting[49m[38;5;241;43m.[39;49m[43mbackend[49m [38;5;241m=[39m [38;5;124m"[39m[38;5;124mplotly[39m[38;5;124m"[39m
+[1;32m      4[0m [38;5;28;01mimport[39;00m [38;5;21;01myfinance[39;00m [38;5;28;01mas[39;00m [38;5;21;01myf[39;00m
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcvx[39;00m[38;5;21;01m.[39;00m[38;5;21;01msimulator[39;00m[38;5;21;01m.[39;00m[38;5;21;01mbuilder[39;00m [38;5;28;01mimport[39;00m builder
+
+File [0;32m~/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/pandas/_config/config.py:224[0m, in [0;36mDictWrapper.__setattr__[0;34m(self, key, val)[0m
+[1;32m    221[0m [38;5;66;03m# you can't set new keys[39;00m
+[1;32m    222[0m [38;5;66;03m# can you can't overwrite subtrees[39;00m
+[1;32m    223[0m [38;5;28;01mif[39;00m key [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39md [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m([38;5;28mself[39m[38;5;241m.[39md[key], [38;5;28mdict[39m):
+[0;32m--> 224[0m     [43m_set_option[49m[43m([49m[43mprefix[49m[43m,[49m[43m [49m[43mval[49m[43m)[49m
+[1;32m    225[0m [38;5;28;01melse[39;00m:
+[1;32m    226[0m     [38;5;28;01mraise[39;00m OptionError([38;5;124m"[39m[38;5;124mYou can only set the value of existing options[39m[38;5;124m"[39m)
+
+File [0;32m~/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/pandas/_config/config.py:160[0m, in [0;36m_set_option[0;34m(*args, **kwargs)[0m
+[1;32m    158[0m o [38;5;241m=[39m _get_registered_option(key)
+[1;32m    159[0m [38;5;28;01mif[39;00m o [38;5;129;01mand[39;00m o[38;5;241m.[39mvalidator:
+[0;32m--> 160[0m     [43mo[49m[38;5;241;43m.[39;49m[43mvalidator[49m[43m([49m[43mv[49m[43m)[49m
+[1;32m    162[0m [38;5;66;03m# walk the nested dict[39;00m
+[1;32m    163[0m root, k [38;5;241m=[39m _get_root(key)
+
+File [0;32m~/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/pandas/core/config_init.py:643[0m, in [0;36mregister_plotting_backend_cb[0;34m(key)[0m
+[1;32m    640[0m     [38;5;28;01mreturn[39;00m
+[1;32m    641[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mplotting[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_core[39;00m [38;5;28;01mimport[39;00m _get_plot_backend
+[0;32m--> 643[0m [43m_get_plot_backend[49m[43m([49m[43mkey[49m[43m)[49m
+
+File [0;32m~/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/pandas/plotting/_core.py:1862[0m, in [0;36m_get_plot_backend[0;34m(backend)[0m
+[1;32m   1859[0m [38;5;28;01mif[39;00m backend_str [38;5;129;01min[39;00m _backends:
+[1;32m   1860[0m     [38;5;28;01mreturn[39;00m _backends[backend_str]
+[0;32m-> 1862[0m module [38;5;241m=[39m [43m_load_backend[49m[43m([49m[43mbackend_str[49m[43m)[49m
+[1;32m   1863[0m _backends[backend_str] [38;5;241m=[39m module
+[1;32m   1864[0m [38;5;28;01mreturn[39;00m module
+
+File [0;32m~/work/cvxFin/cvxFin/.venv/lib/python3.10/site-packages/pandas/plotting/_core.py:1831[0m, in [0;36m_load_backend[0;34m(backend)[0m
+[1;32m   1826[0m     [38;5;28;01mif[39;00m [38;5;28mhasattr[39m(module, [38;5;124m"[39m[38;5;124mplot[39m[38;5;124m"[39m):
+[1;32m   1827[0m         [38;5;66;03m# Validate that the interface is implemented when the option is set,[39;00m
+[1;32m   1828[0m         [38;5;66;03m# rather than at plot time.[39;00m
+[1;32m   1829[0m         [38;5;28;01mreturn[39;00m module
+[0;32m-> 1831[0m [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[1;32m   1832[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;124mCould not find plotting backend [39m[38;5;124m'[39m[38;5;132;01m{[39;00mbackend[38;5;132;01m}[39;00m[38;5;124m'[39m[38;5;124m. Ensure that you[39m[38;5;124m'[39m[38;5;124mve [39m[38;5;124m"[39m
+[1;32m   1833[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;124minstalled the package providing the [39m[38;5;124m'[39m[38;5;132;01m{[39;00mbackend[38;5;132;01m}[39;00m[38;5;124m'[39m[38;5;124m entrypoint, or that [39m[38;5;124m"[39m
+[1;32m   1834[0m     [38;5;124m"[39m[38;5;124mthe package has a top-level `.plot` method.[39m[38;5;124m"[39m
+[1;32m   1835[0m )
+
+[0;31mValueError[0m: Could not find plotting backend 'plotly'. Ensure that you've installed the package providing the 'plotly' entrypoint, or that the package has a top-level `.plot` method.
+

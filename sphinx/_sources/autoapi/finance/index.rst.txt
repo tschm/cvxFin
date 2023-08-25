@@ -1,0 +1,17 @@
+:py:mod:`finance`
+=================
+
+.. py:module:: finance
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Finance/index.rst
+   cvxRegression/index.rst
+   util/index.rst
+
+
