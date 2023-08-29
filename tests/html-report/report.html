@@ -253,9 +253,9 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 28-Aug-2023 at 22:05:17 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <p>Report generated on 29-Aug-2023 at 14:44:06 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
     <h2>Summary</h2>
-    <p>5 tests ran in 0.86 seconds. </p>
+    <p>5 tests ran in 0.89 seconds. </p>
     <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">5 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
@@ -270,6 +270,15 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
+          <td class="col-duration">0.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
           <td class="col-name">tests/test_cvxFinance.py::testMarkowitzObjective</td>
           <td class="col-duration">0.03</td>
           <td class="col-links"></td></tr>
@@ -279,51 +288,120 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
                                      CVXPY                                     
                                      v1.3.2                                    
 ===============================================================================
-(CVXPY) Aug 28 10:05:16 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Aug 28 10:05:16 PM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Aug 28 10:05:16 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Aug 28 10:05:16 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+(CVXPY) Aug 29 02:44:05 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 29 02:44:05 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 29 02:44:05 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 29 02:44:05 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
 -------------------------------------------------------------------------------
                                   Compilation                                  
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Compiling problem (target solver=ECOS).
-(CVXPY) Aug 28 10:05:16 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction FlipObjective
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction Dcp2Cone
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction CvxAttr2Constr
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction ConeMatrixStuffing
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction ECOS
-(CVXPY) Aug 28 10:05:16 PM: Finished problem compilation (took 2.081e-02 seconds).
+(CVXPY) Aug 29 02:44:05 PM: Compiling problem (target solver=ECOS).
+(CVXPY) Aug 29 02:44:05 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction FlipObjective
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction Dcp2Cone
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction ECOS
+(CVXPY) Aug 29 02:44:05 PM: Finished problem compilation (took 2.101e-02 seconds).
 -------------------------------------------------------------------------------
                                 Numerical solver                               
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Invoking solver ECOS  to obtain a solution.
--------------------------------------------------------------------------------
+(CVXPY) Aug 29 02:44:05 PM: Invoking solver ECOS  to obtain a solution.
+
+ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
+
+It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
+ 0  -1.200e+06  -1.018e+07  +2e+07  2e-01  5e-01  1e+00  9e+05    ---    ---    1  1  - |  -  - 
+ 1  -9.357e+04  -5.833e+06  +1e+07  2e-01  3e-01  4e+05  5e+05  0.7905  4e-01   1  1  1 |  0  0
+ 2  +2.095e+05  -4.095e+05  +2e+06  2e-02  3e-02  7e+04  7e+04  0.9150  6e-02   1  1  0 |  0  0
+ 3  +1.278e+04  -5.539e+03  +5e+04  5e-04  4e-04  1e+03  2e+03  0.9686  2e-03   1  0  0 |  0  0
+ 4  +2.108e+02  -2.774e+02  +1e+03  1e-05  7e-05  3e+01  6e+01  0.9735  1e-04   1  0  0 |  0  0
+ 5  -1.462e+01  -1.237e+02  +4e+02  3e-06  2e-05  7e+00  2e+01  0.8700  2e-01   1  1  1 |  0  0
+ 6  -5.800e+00  -1.163e+02  +3e+02  3e-06  1e-05  8e+00  1e+01  0.1281  7e-01   1  1  1 |  0  0
+ 7  -2.624e+01  -7.096e+01  +2e+02  1e-06  6e-06  4e+00  7e+00  0.9809  5e-01   1  1  1 |  0  0
+ 8  +4.883e+00  -6.375e+01  +1e+02  2e-06  4e-06  8e+00  6e+00  0.3754  7e-01   1  1  1 |  0  0
+ 9  -1.241e+01  -2.121e+01  +2e+01  3e-07  5e-07  9e-01  8e-01  0.9890  1e-01   1  1  1 |  0  0
+10  -6.976e+00  -9.170e+00  +4e+00  9e-08  1e-07  4e-01  2e-01  0.8491  6e-02   1  1  1 |  0  0
+11  -4.438e+00  -5.936e+00  +2e+00  7e-08  8e-08  3e-01  9e-02  0.6679  3e-01   1  1  1 |  0  0
+12  -2.061e+00  -2.193e+00  +2e-01  6e-09  9e-09  3e-02  8e-03  0.9513  4e-02   1  1  0 |  0  0
+13  -1.766e+00  -1.805e+00  +5e-02  2e-09  3e-09  9e-03  2e-03  0.8182  1e-01   1  1  1 |  0  0
+14  -1.674e+00  -1.674e+00  +8e-04  3e-11  9e-11  1e-04  4e-05  0.9838  1e-04   1  1  1 |  0  0
+15  -1.672e+00  -1.672e+00  +2e-05  7e-13  1e-11  3e-06  8e-07  0.9783  1e-04   1  1  1 |  0  0
+16  -1.672e+00  -1.672e+00  +1e-06  4e-14  7e-12  2e-07  5e-08  0.9431  2e-03   1  1  1 |  0  0
+17  -1.672e+00  -1.672e+00  +3e-07  4e-15  2e-11  2e-08  1e-08  0.9890  8e-02   1  1  1 |  0  0
+18  -1.672e+00  -1.672e+00  +6e-07  1e-13  6e-11  3e-08  3e-08  0.9890  6e-01   1  1  1 |  0  0
+19  -1.672e+00  -1.672e+00  +6e-07  2e-13  4e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+20  -1.672e+00  -1.672e+00  +3e-07  4e-14  1e-11  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
+21  -1.672e+00  -1.672e+00  +2e-06  2e-13  2e-10  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
+22  -1.672e+00  -1.672e+00  +6e-07  2e-13  5e-11  8e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+23  -1.672e+00  -1.672e+00  +6e-07  1e-13  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+24  -1.672e+00  -1.672e+00  +4e-07  4e-14  9e-12  4e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+25  -1.672e+00  -1.672e+00  +2e-06  5e-14  3e-11  4e-08  7e-08  0.9890  6e-01   1  1  1 |  0  0
+26  -1.672e+00  -1.672e+00  +5e-07  1e-14  6e-12  7e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+27  -1.672e+00  -1.672e+00  +7e-07  3e-14  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+28  -1.672e+00  -1.672e+00  +4e-07  2e-14  1e-11  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+29  -1.672e+00  -1.672e+00  +1e-06  6e-14  6e-11  4e-08  6e-08  0.9890  6e-01   1  1  1 |  0  0
+30  -1.672e+00  -1.672e+00  +4e-07  1e-14  1e-11  6e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+31  -1.672e+00  -1.672e+00  +1e-06  2e-14  1e-10  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+32  -1.672e+00  -1.672e+00  +4e-07  5e-15  3e-11  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+33  -1.672e+00  -1.672e+00  +1e-06  1e-14  3e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+34  -1.672e+00  -1.672e+00  +4e-07  6e-15  8e-12  5e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+35  -1.672e+00  -1.672e+00  +1e-06  2e-14  3e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+36  -1.672e+00  -1.672e+00  +5e-07  2e-14  8e-12  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+37  -1.672e+00  -1.672e+00  +1e-06  2e-14  2e-11  4e-08  4e-08  0.9890  5e-01   1  1  1 |  0  0
+38  -1.672e+00  -1.672e+00  +4e-07  8e-15  4e-12  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+39  -1.672e+00  -1.672e+00  +1e-06  3e-14  7e-12  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+40  -1.672e+00  -1.672e+00  +5e-07  5e-15  7e-13  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+41  -1.672e+00  -1.672e+00  +1e-06  1e-13  3e-11  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+42  -1.672e+00  -1.672e+00  +4e-07  3e-14  6e-12  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+43  -1.672e+00  -1.672e+00  +1e-06  6e-14  2e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+44  -1.672e+00  -1.672e+00  +5e-07  4e-14  1e-11  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+45  -1.672e+00  -1.672e+00  +9e-07  2e-14  8e-12  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+46  -1.672e+00  -1.672e+00  +4e-07  2e-14  3e-12  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+47  -1.672e+00  -1.672e+00  +1e-06  3e-14  5e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+48  -1.672e+00  -1.672e+00  +5e-07  6e-14  2e-11  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+49  -1.672e+00  -1.672e+00  +9e-07  1e-13  6e-11  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+50  -1.672e+00  -1.672e+00  +4e-07  3e-14  2e-11  5e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+51  -1.672e+00  -1.672e+00  +1e-06  2e-14  4e-12  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+52  -1.672e+00  -1.672e+00  +5e-07  2e-14  9e-13  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+53  -1.672e+00  -1.672e+00  +9e-07  1e-14  1e-10  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+54  -1.672e+00  -1.672e+00  +3e-07  1e-14  3e-11  4e-08  1e-08  0.9890  2e-01   1  1  1 |  0  0
+55  -1.672e+00  -1.672e+00  +1e-06  2e-14  8e-11  4e-08  6e-08  0.9890  6e-01   1  1  1 |  0  0
+56  -1.672e+00  -1.672e+00  +6e-07  6e-15  2e-11  7e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+57  -1.672e+00  -1.672e+00  +8e-07  2e-14  3e-11  4e-08  3e-08  0.9890  4e-01   1  1  1 |  0  0
+58  -1.672e+00  -1.672e+00  +3e-07  5e-15  7e-12  4e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
+59  -1.672e+00  -1.672e+00  +1e-06  3e-14  2e-11  4e-08  6e-08  0.9890  6e-01   1  1  1 |  0  0
+60  -1.672e+00  -1.672e+00  +6e-07  3e-14  1e-11  8e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+61  -1.672e+00  -1.672e+00  +7e-07  1e-14  7e-11  4e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
+62  -1.672e+00  -1.672e+00  +4e-07  2e-14  2e-11  4e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+63  -1.672e+00  -1.672e+00  +1e-06  5e-14  9e-11  4e-08  6e-08  0.9890  6e-01   1  1  1 |  0  0
+64  -1.672e+00  -1.672e+00  +4e-07  7e-14  2e-11  6e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+65  -1.672e+00  -1.672e+00  +9e-07  6e-14  6e-11  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+66  -1.672e+00  -1.672e+00  +5e-07  2e-14  2e-11  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+67  -1.672e+00  -1.672e+00  +1e-06  2e-14  2e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+68  -1.672e+00  -1.672e+00  +4e-07  5e-14  2e-11  5e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+69  -1.672e+00  -1.672e+00  +1e-06  9e-15  3e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+70  -1.672e+00  -1.672e+00  +5e-07  6e-14  1e-11  7e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+71  -1.672e+00  -1.672e+00  +9e-07  5e-14  4e-12  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+72  -1.672e+00  -1.672e+00  +3e-07  1e-14  2e-12  4e-08  1e-08  0.9890  2e-01   1  1  1 |  0  0
+73  -1.672e+00  -1.672e+00  +1e-06  5e-13  5e-10  4e-08  6e-08  0.9890  6e-01   1  1  1 |  0  0
+74  -1.672e+00  -1.672e+00  +4e-07  1e-13  1e-10  6e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+75  -1.672e+00  -1.672e+00  +9e-07  3e-14  6e-11  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+76  -1.672e+00  -1.672e+00  +4e-07  1e-14  2e-11  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+77  -1.672e+00  -1.672e+00  +1e-06  4e-14  3e-11  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+78  -1.672e+00  -1.672e+00  +4e-07  1e-14  6e-12  5e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+79  -1.672e+00  -1.672e+00  +1e-06  2e-14  9e-12  4e-08  5e-08  0.9890  5e-01   1  1  1 |  0  0
+80  -1.672e+00  -1.672e+00  +5e-07  8e-15  3e-13  6e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
+81  -1.672e+00  -1.672e+00  +9e-07  2e-14  6e-12  4e-08  4e-08  0.9890  4e-01   1  1  1 |  0  0
+82  -1.672e+00  -1.672e+00  +4e-07  6e-15  5e-13  5e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
+83  -1.672e+00  -1.672e+00  +1e-06  2-------------------------------------------------------------------------------
                                     Summary                                    
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Problem status: optimal_inaccurate
-(CVXPY) Aug 28 10:05:16 PM: Optimal value: 1.672e+00
-(CVXPY) Aug 28 10:05:16 PM: Compilation took 2.081e-02 seconds
-(CVXPY) Aug 28 10:05:16 PM: Solver (including time spent in interface) took 5.722e-04 seconds
+(CVXPY) Aug 29 02:44:05 PM: Problem status: optimal_inaccurate
+(CVXPY) Aug 29 02:44:05 PM: Optimal value: 1.672e+00
+(CVXPY) Aug 29 02:44:05 PM: Compilation took 2.101e-02 seconds
+(CVXPY) Aug 29 02:44:05 PM: Solver (including time spent in interface) took 1.370e-03 seconds
 <br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
@@ -346,78 +424,39 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
                                      CVXPY                                     
                                      v1.3.2                                    
 ===============================================================================
-(CVXPY) Aug 28 10:05:16 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Aug 28 10:05:16 PM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Aug 28 10:05:16 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Aug 28 10:05:16 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+(CVXPY) Aug 29 02:44:05 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.
+(CVXPY) Aug 29 02:44:05 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Aug 29 02:44:05 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Aug 29 02:44:05 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
 -------------------------------------------------------------------------------
                                   Compilation                                  
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Compiling problem (target solver=ECOS_BB).
-(CVXPY) Aug 28 10:05:16 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction FlipObjective
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction Dcp2Cone
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction CvxAttr2Constr
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction ConeMatrixStuffing
-(CVXPY) Aug 28 10:05:16 PM: Applying reduction ECOS_BB
-(CVXPY) Aug 28 10:05:16 PM: Finished problem compilation (took 1.060e-02 seconds).
+(CVXPY) Aug 29 02:44:05 PM: Compiling problem (target solver=ECOS_BB).
+(CVXPY) Aug 29 02:44:05 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction FlipObjective
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction Dcp2Cone
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Aug 29 02:44:05 PM: Applying reduction ECOS_BB
+(CVXPY) Aug 29 02:44:05 PM: Finished problem compilation (took 1.197e-02 seconds).
 -------------------------------------------------------------------------------
                                 Numerical solver                               
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Invoking solver ECOS_BB  to obtain a solution.
-
-ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
-
-It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
- 0  -1.200e+06  -1.018e+07  +2e+07  2e-01  5e-01  1e+00  9e+05    ---    ---    1  1  - |  -  - 
- 1  -9.357e+04  -5.833e+06  +1e+07  2e-01  3e-01  4e+05  5e+05  0.7905  4e-01   1  1  1 |  0  0
- 2  +2.095e+05  -4.095e+05  +2e+06  2e-02  3e-02  7e+04  7e+04  0.9150  6e-02   1  1  0 |  0  0
- 3  +1.278e+04  -5.539e+03  +5e+04  5e-04  4e-04  1e+03  2e+03  0.9686  2e-03   1  0  0 |  0  0
- 4  +2.108e+02  -2.774e+02  +1e+03  1e-05  7e-05  3e+01  6e+01  0.9735  1e-04   1  0  0 |  0  0
- 5  -1.462e+01  -1.237e+02  +4e+02  3e-06  2e-05  7e+00  2e+01  0.8700  2e-01   1  1  1 |  0  0
- 6  -5.800e+00  -1.163e+02  +3e+02  3e-06  1e-05  8e+00  1e+01  0.1281  7e-01   1  1  1 |  0  0
- 7  -2.624e+01  -7.096e+01  +2e+02  1e-06  6e-06  4e+00  7e+00  0.9809  5e-01   1  1  1 |  0  0
- 8  +4.883e+00  -6.375e+01  +1e+02  2e-06  4e-06  8e+00  6e+00  0.3754  7e-01   1  1  1 |  0  0
- 9  -1.241e+01  -2.121e+01  +2e+01  3e-07  5e-07  9e-01  8e-01  0.9890  1e-01   1  1  1 |  0  0
-10  -6.976e+00  -9.170e+00  +4e+00  9e-08  1e-07  4e-01  2e-01  0.8491  6e-02   1  1  1 |  0  0
-11  -4.438e+00  -5.936e+00  +2e+00  7e-08  8e-08  3e-01  9e-02  0.6679  3e-01   1  1  1 |  0  0
-12  -2.061e+00  -2.193e+00  +2e-01  6e-09  9e-09  3e-02  8e-03  0.9513  4e-02   1  1  0 |  0  0
-13  -1.766e+00  -1.805e+00  +5e-02  2e-09  3e-09  9e-03  2e-03  0.8182  1e-01   1  1  1 |  0  0
-14  -1.674e+00  -1.674e+00  +8e-04  3e-11  9e-11  1e-04  4e-05  0.9838  1e-04   1  1  1 |  0  0
-15  -1.672e+00  -1.672e+00  +2e-05  7e-13  1e-11  3e-06  8e-07  0.9783  1e-04   1  1  1 |  0  0
-16  -1.672e+00  -1.672e+00  +1e-06  4e-14  7e-12  2e-07  5e-08  0.9431  2e-03   1  1  1 |  0  0
-17  -1.672e+00  -1.672e+00  +3e-07  4e-15  1e-11  2e-08  1e-08  0.9890  8e-02   1  1  1 |  0  0
-18  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-11  3e-08  3e-08  0.9890  6e-01   1  1  1 |  0  0
-19  -1.672e+00  -1.672e+00  +6e-07  4e-14  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
-20  -1.672e+00  -1.672e+00  +3e-07  1e-14  4e-12  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
-21  -1.672e+00  -1.672e+00  +2e-06  4e-14  1e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
-22  -1.672e+00  -1.672e+00  +7e-07  7e-14  1e-12  1e-07  3e-08  0.9890  3e-01   1  1  1 |  0  0
-23  -1.672e+00  -1.672e+00  +5e-07  1e-13  6e-11  3e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
-24  -1.672e+00  -1.672e+00  +3e-07  5e-14  2e-11  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
-25  -1.672e+00  -1.672e+00  +2e-06  1e-13  4e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
-26  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-12  9e-08  3e-08  0.9890  2e-01   1  1  1 |  0  0
-27  -1.672e+00  -1.672e+00  +6e-07  2e-14  7e-12  3e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
-28  -1.672e+00  -1.672e+00  +4e-07  7e-15  3e-12  4e-08  2e-08  0.9890  4e-01   1  1  1 |  0  0
-29  -1.672e+00  -1.672e+00  +2e-06  3e-13  3e-09  5e-08  7e-08  0.9890  6e-01   1  1  1 |  0  0
-30  -1.672e+00  -1.672e+00  +5e-08  7e-15  6e-11  5e-09  2e-09  0.9890  1e-02   1  1  1 |  0  0
-31  -1.672e+00  -1.672e+00  +2e-06  2e-13  4e-11  9e-09  9e-08  0.9890  7e-01   1  1  1 |  0  0
-32  -1.672e+00  -1.672e+00  +2e-08  2e-15  5e-13  1e-10  1e-09  0.9890  1e-04   1  1  1 |  0  0
-33  -1.672e+00  -1.672e+00  +4e-06  4e-10  5e-13  5e-09  2e-07  0.9890  9e-01   1  1  1 |  0  0
-Unreliable search direction detected, recovering best iterate (32) and stopping.
-
-Close to OPTIMAL (within feastol=4.6e-13, reltol=1.4e-08, abstol=2.3e-08).
-Runtime: 0.000497 seconds.
-
-
-ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
-
-It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
- 0  -1.398e+06  -1.084e+07  +2e+07  2e-01  5e-09  1e+00  1e+06    ---    ---    1  1  - |  -  - 
- 1  -8.764e+05  -4.995e+06  +9e+06  1e-01  5e-03  2e+05  6e+05  0.7010  2e-01   0  0  0 |  0  0-------------------------------------------------------------------------------
+(CVXPY) Aug 29 02:44:05 PM: Invoking solver ECOS_BB  to obtain a solution.
+-------------------------------------------------------------------------------
                                     Summary                                    
 -------------------------------------------------------------------------------
-(CVXPY) Aug 28 10:05:16 PM: Problem status: optimal
-(CVXPY) Aug 28 10:05:16 PM: Optimal value: 8.333e+01
-(CVXPY) Aug 28 10:05:16 PM: Compilation took 1.060e-02 seconds
-(CVXPY) Aug 28 10:05:16 PM: Solver (including time spent in interface) took 2.160e-04 seconds
-<br/></div></td></tr></tbody></table></body></html>
+(CVXPY) Aug 29 02:44:05 PM: Problem status: optimal
+(CVXPY) Aug 29 02:44:05 PM: Optimal value: 8.333e+01
+(CVXPY) Aug 29 02:44:05 PM: Compilation took 1.197e-02 seconds
+(CVXPY) Aug 29 02:44:05 PM: Solver (including time spent in interface) took 2.635e-04 seconds
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
+          <td class="col-duration">0.02</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
