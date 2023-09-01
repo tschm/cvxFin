@@ -47,6 +47,6 @@ repos:
     rev: v1.5.4
     hooks:
         - id: insert-license
-          files: ^(mosek_tools)
+          files: ^(cvx)
           args:
             ['--license-filepath', 'copyright.txt', '--no-extra-eol']
