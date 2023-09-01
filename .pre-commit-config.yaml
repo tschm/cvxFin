@@ -50,4 +50,3 @@ repos:
           files: ^(mosek_tools)
           args:
             ['--license-filepath', 'copyright.txt', '--no-extra-eol']
-
