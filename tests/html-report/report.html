@@ -2,422 +2,769 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title>report.html</title>
-    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
-  <body onLoad="init()">
-    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-
-function toArray(iter) {
-    if (iter === null) {
-        return null;
-    }
-    return Array.prototype.slice.call(iter);
-}
-
-function find(selector, elem) { // eslint-disable-line no-redeclare
-    if (!elem) {
-        elem = document;
-    }
-    return elem.querySelector(selector);
-}
-
-function findAll(selector, elem) {
-    if (!elem) {
-        elem = document;
-    }
-    return toArray(elem.querySelectorAll(selector));
-}
-
-function sortColumn(elem) {
-    toggleSortStates(elem);
-    const colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
-    let key;
-    if (elem.classList.contains('result')) {
-        key = keyResult;
-    } else if (elem.classList.contains('links')) {
-        key = keyLink;
-    } else {
-        key = keyAlpha;
-    }
-    sortTable(elem, key(colIndex));
-}
-
-function showAllExtras() { // eslint-disable-line no-unused-vars
-    findAll('.col-result').forEach(showExtras);
-}
-
-function hideAllExtras() { // eslint-disable-line no-unused-vars
-    findAll('.col-result').forEach(hideExtras);
-}
-
-function showExtras(colresultElem) {
-    const extras = colresultElem.parentNode.nextElementSibling;
-    const expandcollapse = colresultElem.firstElementChild;
-    extras.classList.remove('collapsed');
-    expandcollapse.classList.remove('expander');
-    expandcollapse.classList.add('collapser');
-}
-
-function hideExtras(colresultElem) {
-    const extras = colresultElem.parentNode.nextElementSibling;
-    const expandcollapse = colresultElem.firstElementChild;
-    extras.classList.add('collapsed');
-    expandcollapse.classList.remove('collapser');
-    expandcollapse.classList.add('expander');
-}
-
-function showFilters() {
-    let visibleString = getQueryParameter('visible') || 'all';
-    visibleString = visibleString.toLowerCase();
-    const checkedItems = visibleString.split(',');
-
-    const filterItems = document.getElementsByClassName('filter');
-    for (let i = 0; i < filterItems.length; i++) {
-        filterItems[i].hidden = false;
-
-        if (visibleString != 'all') {
-            filterItems[i].checked = checkedItems.includes(filterItems[i].getAttribute('data-test-result'));
-            filterTable(filterItems[i]);
-        }
-    }
-}
-
-function addCollapse() {
-    // Add links for show/hide all
-    const resulttable = find('table#results-table');
-    const showhideall = document.createElement('p');
-    showhideall.innerHTML = '<a href="javascript:showAllExtras()">Show all details</a> / ' +
-                            '<a href="javascript:hideAllExtras()">Hide all details</a>';
-    resulttable.parentElement.insertBefore(showhideall, resulttable);
-
-    // Add show/hide link to each result
-    findAll('.col-result').forEach(function(elem) {
-        const collapsed = getQueryParameter('collapsed') || 'Passed';
-        const extras = elem.parentNode.nextElementSibling;
-        const expandcollapse = document.createElement('span');
-        if (extras.classList.contains('collapsed')) {
-            expandcollapse.classList.add('expander');
-        } else if (collapsed.includes(elem.innerHTML)) {
-            extras.classList.add('collapsed');
-            expandcollapse.classList.add('expander');
-        } else {
-            expandcollapse.classList.add('collapser');
-        }
-        elem.appendChild(expandcollapse);
-
-        elem.addEventListener('click', function(event) {
-            if (event.currentTarget.parentNode.nextElementSibling.classList.contains('collapsed')) {
-                showExtras(event.currentTarget);
-            } else {
-                hideExtras(event.currentTarget);
-            }
-        });
-    });
-}
-
-function getQueryParameter(name) {
-    const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-function init () { // eslint-disable-line no-unused-vars
-    resetSortHeaders();
-
-    addCollapse();
-
-    showFilters();
-
-    sortColumn(find('.initial-sort'));
-
-    findAll('.sortable').forEach(function(elem) {
-        elem.addEventListener('click',
-            function() {
-                sortColumn(elem);
-            }, false);
-    });
-}
-
-function sortTable(clicked, keyFunc) {
-    const rows = findAll('.results-table-row');
-    const reversed = !clicked.classList.contains('asc');
-    const sortedRows = sort(rows, keyFunc, reversed);
-    /* Whole table is removed here because browsers acts much slower
-     * when appending existing elements.
-     */
-    const thead = document.getElementById('results-table-head');
-    document.getElementById('results-table').remove();
-    const parent = document.createElement('table');
-    parent.id = 'results-table';
-    parent.appendChild(thead);
-    sortedRows.forEach(function(elem) {
-        parent.appendChild(elem);
-    });
-    document.getElementsByTagName('BODY')[0].appendChild(parent);
-}
-
-function sort(items, keyFunc, reversed) {
-    const sortArray = items.map(function(item, i) {
-        return [keyFunc(item), i];
-    });
-
-    sortArray.sort(function(a, b) {
-        const keyA = a[0];
-        const keyB = b[0];
-
-        if (keyA == keyB) return 0;
-
-        if (reversed) {
-            return keyA < keyB ? 1 : -1;
-        } else {
-            return keyA > keyB ? 1 : -1;
-        }
-    });
-
-    return sortArray.map(function(item) {
-        const index = item[1];
-        return items[index];
-    });
-}
-
-function keyAlpha(colIndex) {
-    return function(elem) {
-        return elem.childNodes[1].childNodes[colIndex].firstChild.data.toLowerCase();
-    };
-}
-
-function keyLink(colIndex) {
-    return function(elem) {
-        const dataCell = elem.childNodes[1].childNodes[colIndex].firstChild;
-        return dataCell == null ? '' : dataCell.innerText.toLowerCase();
-    };
-}
-
-function keyResult(colIndex) {
-    return function(elem) {
-        const strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
-            'Skipped', 'Passed'];
-        return strings.indexOf(elem.childNodes[1].childNodes[colIndex].firstChild.data);
-    };
-}
-
-function resetSortHeaders() {
-    findAll('.sort-icon').forEach(function(elem) {
-        elem.parentNode.removeChild(elem);
-    });
-    findAll('.sortable').forEach(function(elem) {
-        const icon = document.createElement('div');
-        icon.className = 'sort-icon';
-        icon.textContent = 'vvv';
-        elem.insertBefore(icon, elem.firstChild);
-        elem.classList.remove('desc', 'active');
-        elem.classList.add('asc', 'inactive');
-    });
-}
-
-function toggleSortStates(elem) {
-    //if active, toggle between asc and desc
-    if (elem.classList.contains('active')) {
-        elem.classList.toggle('asc');
-        elem.classList.toggle('desc');
-    }
-
-    //if inactive, reset all other functions and add ascending active
-    if (elem.classList.contains('inactive')) {
-        resetSortHeaders();
-        elem.classList.remove('inactive');
-        elem.classList.add('active');
-    }
-}
-
-function isAllRowsHidden(value) {
-    return value.hidden == false;
-}
-
-function filterTable(elem) { // eslint-disable-line no-unused-vars
-    const outcomeAtt = 'data-test-result';
-    const outcome = elem.getAttribute(outcomeAtt);
-    const classOutcome = outcome + ' results-table-row';
-    const outcomeRows = document.getElementsByClassName(classOutcome);
-
-    for(let i = 0; i < outcomeRows.length; i++){
-        outcomeRows[i].hidden = !elem.checked;
-    }
-
-    const rows = findAll('.results-table-row').filter(isAllRowsHidden);
-    const allRowsHidden = rows.length == 0 ? true : false;
-    const notFoundMessage = document.getElementById('not-found-message');
-    notFoundMessage.hidden = !allRowsHidden;
-}
-</script>
-    <h1>report.html</h1>
-    <p>Report generated on 01-Sep-2023 at 04:30:58 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
-    <h2>Summary</h2>
-    <p>5 tests ran in 0.91 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">5 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
-    <h2>Results</h2>
+    <title id="head-title">report.html</title>
+      <link href="assets/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <h1 id="title">report.html</h1>
+    <p>Report generated on 04-Sep-2023 at 17:03:00 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.0.0</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</th>
+        </tr>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left"><</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">></div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">5 tests took 98 ms.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to ge the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" disabled/>
+            <span class="failed">0 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" />
+            <span class="passed">5 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled/>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" disabled/>
+            <span class="xfailed">0 Unexpected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled/>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled/>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled/>
+            <span class="rerun">0 Reruns</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
     <table id="results-table">
       <thead id="results-table-head">
         <tr>
-          <th class="sortable result initial-sort" col="result">Result</th>
-          <th class="sortable" col="name">Test</th>
-          <th class="sortable" col="duration">Duration</th>
-          <th class="sortable links" col="links">Links</th></tr>
-        <tr hidden="true" id="not-found-message">
-          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzObjective</td>
-          <td class="col-duration">0.03</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>===============================================================================
-                                     CVXPY                                     
-                                     v1.3.2                                    
-===============================================================================
-(CVXPY) Sep 01 04:30:58 AM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Sep 01 04:30:58 AM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Sep 01 04:30:58 AM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Sep 01 04:30:58 AM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
--------------------------------------------------------------------------------
-                                  Compilation                                  
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Compiling problem (target solver=ECOS).
-(CVXPY) Sep 01 04:30:58 AM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction FlipObjective
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction Dcp2Cone
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction CvxAttr2Constr
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction ConeMatrixStuffing
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction ECOS
-(CVXPY) Sep 01 04:30:58 AM: Finished problem compilation (took 2.066e-02 seconds).
--------------------------------------------------------------------------------
-                                Numerical solver                               
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Invoking solver ECOS  to obtain a solution.
--------------------------------------------------------------------------------
-                                    Summary                                    
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Problem status: optimal_inaccurate
-(CVXPY) Sep 01 04:30:58 AM: Optimal value: 1.672e+00
-(CVXPY) Sep 01 04:30:58 AM: Compilation took 2.066e-02 seconds
-(CVXPY) Sep 01 04:30:58 AM: Solver (including time spent in interface) took 5.672e-04 seconds
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testLinear</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>[&#x27;ECOS&#x27;, &#x27;ECOS_BB&#x27;, &#x27;OSQP&#x27;, &#x27;SCIPY&#x27;, &#x27;SCS&#x27;]
-===============================================================================
-                                     CVXPY                                     
-                                     v1.3.2                                    
-===============================================================================
-(CVXPY) Sep 01 04:30:58 AM: Your problem has 4 variables, 4 constraints, and 0 parameters.
-(CVXPY) Sep 01 04:30:58 AM: It is compliant with the following grammars: DCP, DQCP
-(CVXPY) Sep 01 04:30:58 AM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
-(CVXPY) Sep 01 04:30:58 AM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
--------------------------------------------------------------------------------
-                                  Compilation                                  
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Compiling problem (target solver=ECOS_BB).
-(CVXPY) Sep 01 04:30:58 AM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction FlipObjective
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction Dcp2Cone
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction CvxAttr2Constr
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction ConeMatrixStuffing
-(CVXPY) Sep 01 04:30:58 AM: Applying reduction ECOS_BB
-(CVXPY) Sep 01 04:30:58 AM: Finished problem compilation (took 1.042e-02 seconds).
--------------------------------------------------------------------------------
-                                Numerical solver                               
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Invoking solver ECOS_BB  to obtain a solution.
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.10.12&#34;, &#34;Platform&#34;: &#34;Linux-5.15.0-1041-azure-x86_64-with-glibc2.35&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;7.4.1&#34;, &#34;pluggy&#34;: &#34;1.3.0&#34;}, &#34;Plugins&#34;: {&#34;metadata&#34;: &#34;3.0.0&#34;, &#34;html&#34;: &#34;4.0.0&#34;, &#34;cov&#34;: &#34;4.1.0&#34;, &#34;random-order&#34;: &#34;1.1.0&#34;}, &#34;CI&#34;: &#34;true&#34;, &#34;JAVA_HOME&#34;: &#34;/usr/lib/jvm/temurin-11-jdk-amd64&#34;}, &#34;tests&#34;: {&#34;tests/test_cvxFinance.py::testQuadratic&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cvxFinance.py::testQuadratic&#34;, &#34;duration&#34;: &#34;18 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cvxFinance.py::testQuadratic&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;18 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/test_cvxFinance.py::testQuadraticObjective&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cvxFinance.py::testQuadraticObjective&#34;, &#34;duration&#34;: &#34;16 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cvxFinance.py::testQuadraticObjective&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;16 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/test_cvxFinance.py::testMarkowitzConstraint&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cvxFinance.py::testMarkowitzConstraint&#34;, &#34;duration&#34;: &#34;19 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cvxFinance.py::testMarkowitzConstraint&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;19 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/test_cvxFinance.py::testMarkowitzObjective&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cvxFinance.py::testMarkowitzObjective&#34;, &#34;duration&#34;: &#34;21 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cvxFinance.py::testMarkowitzObjective&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;21 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\n===============================================================================\n                                     CVXPY                                     \n                                     v1.3.2                                    \n===============================================================================\n(CVXPY) Sep 04 05:03:00 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.\n(CVXPY) Sep 04 05:03:00 PM: It is compliant with the following grammars: DCP, DQCP\n(CVXPY) Sep 04 05:03:00 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\n(CVXPY) Sep 04 05:03:00 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Compiling problem (target solver=ECOS).\n(CVXPY) Sep 04 05:03:00 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction FlipObjective\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction Dcp2Cone\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction CvxAttr2Constr\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction ConeMatrixStuffing\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction ECOS\n(CVXPY) Sep 04 05:03:00 PM: Finished problem compilation (took 1.528e-02 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Invoking solver ECOS  to obtain a solution.\n-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Problem status: optimal_inaccurate\n(CVXPY) Sep 04 05:03:00 PM: Optimal value: 1.672e+00\n(CVXPY) Sep 04 05:03:00 PM: Compilation took 1.528e-02 seconds\n(CVXPY) Sep 04 05:03:00 PM: Solver (including time spent in interface) took 5.412e-04 seconds\n&#34;}], &#34;tests/test_cvxFinance.py::testLinear&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_cvxFinance.py::testLinear&#34;, &#34;duration&#34;: &#34;16 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_cvxFinance.py::testLinear&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;16 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\n[&#39;ECOS&#39;, &#39;ECOS_BB&#39;, &#39;OSQP&#39;, &#39;SCIPY&#39;, &#39;SCS&#39;]\n===============================================================================\n                                     CVXPY                                     \n                                     v1.3.2                                    \n===============================================================================\n(CVXPY) Sep 04 05:03:00 PM: Your problem has 4 variables, 4 constraints, and 0 parameters.\n(CVXPY) Sep 04 05:03:00 PM: It is compliant with the following grammars: DCP, DQCP\n(CVXPY) Sep 04 05:03:00 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\n(CVXPY) Sep 04 05:03:00 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Compiling problem (target solver=ECOS_BB).\n(CVXPY) Sep 04 05:03:00 PM: Reduction chain: FlipObjective -&gt; Dcp2Cone -&gt; CvxAttr2Constr -&gt; ConeMatrixStuffing -&gt; ECOS_BB\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction FlipObjective\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction Dcp2Cone\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction CvxAttr2Constr\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction ConeMatrixStuffing\n(CVXPY) Sep 04 05:03:00 PM: Applying reduction ECOS_BB\n(CVXPY) Sep 04 05:03:00 PM: Finished problem compilation (took 8.694e-03 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Invoking solver ECOS_BB  to obtain a solution.\n\nECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS\n\nIt     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT\n 0  -1.200e+06  -1.018e+07  +2e+07  2e-01  5e-01  1e+00  9e+05    ---    ---    1  1  - |  -  - \n 1  -9.357e+04  -5.833e+06  +1e+07  2e-01  3e-01  4e+05  5e+05  0.7905  4e-01   1  1  1 |  0  0\n 2  +2.095e+05  -4.095e+05  +2e+06  2e-02  3e-02  7e+04  7e+04  0.9150  6e-02   1  1  0 |  0  0\n 3  +1.278e+04  -5.539e+03  +5e+04  5e-04  4e-04  1e+03  2e+03  0.9686  2e-03   1  0  0 |  0  0\n 4  +2.108e+02  -2.774e+02  +1e+03  1e-05  7e-05  3e+01  6e+01  0.9735  1e-04   1  0  0 |  0  0\n 5  -1.462e+01  -1.237e+02  +4e+02  3e-06  2e-05  7e+00  2e+01  0.8700  2e-01   1  1  1 |  0  0\n 6  -5.800e+00  -1.163e+02  +3e+02  3e-06  1e-05  8e+00  1e+01  0.1281  7e-01   1  1  1 |  0  0\n 7  -2.624e+01  -7.096e+01  +2e+02  1e-06  6e-06  4e+00  7e+00  0.9809  5e-01   1  1  1 |  0  0\n 8  +4.883e+00  -6.375e+01  +1e+02  2e-06  4e-06  8e+00  6e+00  0.3754  7e-01   1  1  1 |  0  0\n 9  -1.241e+01  -2.121e+01  +2e+01  3e-07  5e-07  9e-01  8e-01  0.9890  1e-01   1  1  1 |  0  0\n10  -6.976e+00  -9.170e+00  +4e+00  9e-08  1e-07  4e-01  2e-01  0.8491  6e-02   1  1  1 |  0  0\n11  -4.438e+00  -5.936e+00  +2e+00  7e-08  8e-08  3e-01  9e-02  0.6679  3e-01   1  1  1 |  0  0\n12  -2.061e+00  -2.193e+00  +2e-01  6e-09  9e-09  3e-02  8e-03  0.9513  4e-02   1  1  0 |  0  0\n13  -1.766e+00  -1.805e+00  +5e-02  2e-09  3e-09  9e-03  2e-03  0.8182  1e-01   1  1  1 |  0  0\n14  -1.674e+00  -1.674e+00  +8e-04  3e-11  9e-11  1e-04  4e-05  0.9838  1e-04   1  1  1 |  0  0\n15  -1.672e+00  -1.672e+00  +2e-05  7e-13  1e-11  3e-06  8e-07  0.9783  1e-04   1  1  1 |  0  0\n16  -1.672e+00  -1.672e+00  +1e-06  4e-14  7e-12  2e-07  5e-08  0.9431  2e-03   1  1  1 |  0  0\n17  -1.672e+00  -1.672e+00  +3e-07  4e-15  1e-11  2e-08  1e-08  0.9890  8e-02   1  1  1 |  0  0\n18  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-11  3e-08  3e-08  0.9890  6e-01   1  1  1 |  0  0\n19  -1.672e+00  -1.672e+00  +6e-07  4e-14  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0\n20  -1.672e+00  -1.672e+00  +3e-07  1e-14  4e-12  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0\n21  -1.672e+00  -1.672e+00  +2e-06  4e-14  1e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0\n22  -1.672e+00  -1.672e+00  +7e-07  7e-14  1e-12  1e-07  3e-08  0.9890  3e-01   1  1  1 |  0  0\n23  -1.672e+00  -1.672e+00  +5e-07  1e-13  6e-11  3e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0\n24  -1.672e+00  -1.672e+00  +3e-07  5e-14  2e-11  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0\n25  -1.672e+00  -1.672e+00  +2e-06  1e-13  4e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0\n26  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-12  9e-08  3e-08  0.9890  2e-01   1  1  1 |  0  0\n27  -1.672e+00  -1.672e+00  +6e-07  2e-14  7e-12  3e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0\n28  -1.672e+00  -1.672e+00  +4e-07  7e-15  3e-12  4e-08  2e-08  0.9890  4e-01   1  1  1 |  0  0\n29  -1.672e+00  -1.672e+00  +2e-06  3e-13  3e-09  5e-08  7e-08  0.9890  6e-01   1  1  1 |  0  0\n30  -1.672e+00  -1.672e+00  +5e-08  7e-15  6e-11  5e-09  2e-09  0.9890  1e-02   1  1  1 |  0  0\n31  -1.672e+00  -1.672e+00  +2e-06  2e-13  4e-11  9e-09  9e-08  0.9890  7e-01   1  1  1 |  0  0\n32  -1.672e+00  -1.672e+00  +2e-08  2e-15  5e-13  1e-10  1e-09  0.9890  1e-04   1  1  1 |  0  0\n33  -1.672e+00  -1.672e+00  +4e-06  4e-10  5e-13  5e-09  2e-07  0.9890  9e-01   1  1  1 |  0  0\n\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bUnreliable search direction detected, recovering best iterate (32) and stopping.\n\nClose to OPTIMAL (within feastol=4.6e-13, reltol=1.4e-08, abstol=2.3e-08).\nRuntime: 0.000495 seconds.\n\n\nECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS\n\nIt     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT\n 0  -1.398e+06  -1.084e+07  +2e+07  2e-01  5e-09  1e+00  1e+06    ---    ---    1  1  - |  -  - \n 1  -8.764e+05  -4.995e+06  +9e+06  1e-01  5e-03  2e+05  6e+05  0.7010  2e-01   0  0  0 |  0  0-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\n(CVXPY) Sep 04 05:03:00 PM: Problem status: optimal\n(CVXPY) Sep 04 05:03:00 PM: Optimal value: 8.333e+01\n(CVXPY) Sep 04 05:03:00 PM: Compilation took 8.694e-03 seconds\n(CVXPY) Sep 04 05:03:00 PM: Solver (including time spent in interface) took 1.638e-04 seconds\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;report.html&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
 
-ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
 
-It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
- 0  -1.200e+06  -1.018e+07  +2e+07  2e-01  5e-01  1e+00  9e+05    ---    ---    1  1  - |  -  - 
- 1  -9.357e+04  -5.833e+06  +1e+07  2e-01  3e-01  4e+05  5e+05  0.7905  4e-01   1  1  1 |  0  0
- 2  +2.095e+05  -4.095e+05  +2e+06  2e-02  3e-02  7e+04  7e+04  0.9150  6e-02   1  1  0 |  0  0
- 3  +1.278e+04  -5.539e+03  +5e+04  5e-04  4e-04  1e+03  2e+03  0.9686  2e-03   1  0  0 |  0  0
- 4  +2.108e+02  -2.774e+02  +1e+03  1e-05  7e-05  3e+01  6e+01  0.9735  1e-04   1  0  0 |  0  0
- 5  -1.462e+01  -1.237e+02  +4e+02  3e-06  2e-05  7e+00  2e+01  0.8700  2e-01   1  1  1 |  0  0
- 6  -5.800e+00  -1.163e+02  +3e+02  3e-06  1e-05  8e+00  1e+01  0.1281  7e-01   1  1  1 |  0  0
- 7  -2.624e+01  -7.096e+01  +2e+02  1e-06  6e-06  4e+00  7e+00  0.9809  5e-01   1  1  1 |  0  0
- 8  +4.883e+00  -6.375e+01  +1e+02  2e-06  4e-06  8e+00  6e+00  0.3754  7e-01   1  1  1 |  0  0
- 9  -1.241e+01  -2.121e+01  +2e+01  3e-07  5e-07  9e-01  8e-01  0.9890  1e-01   1  1  1 |  0  0
-10  -6.976e+00  -9.170e+00  +4e+00  9e-08  1e-07  4e-01  2e-01  0.8491  6e-02   1  1  1 |  0  0
-11  -4.438e+00  -5.936e+00  +2e+00  7e-08  8e-08  3e-01  9e-02  0.6679  3e-01   1  1  1 |  0  0
-12  -2.061e+00  -2.193e+00  +2e-01  6e-09  9e-09  3e-02  8e-03  0.9513  4e-02   1  1  0 |  0  0
-13  -1.766e+00  -1.805e+00  +5e-02  2e-09  3e-09  9e-03  2e-03  0.8182  1e-01   1  1  1 |  0  0
-14  -1.674e+00  -1.674e+00  +8e-04  3e-11  9e-11  1e-04  4e-05  0.9838  1e-04   1  1  1 |  0  0
-15  -1.672e+00  -1.672e+00  +2e-05  7e-13  1e-11  3e-06  8e-07  0.9783  1e-04   1  1  1 |  0  0
-16  -1.672e+00  -1.672e+00  +1e-06  4e-14  7e-12  2e-07  5e-08  0.9431  2e-03   1  1  1 |  0  0
-17  -1.672e+00  -1.672e+00  +3e-07  4e-15  1e-11  2e-08  1e-08  0.9890  8e-02   1  1  1 |  0  0
-18  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-11  3e-08  3e-08  0.9890  6e-01   1  1  1 |  0  0
-19  -1.672e+00  -1.672e+00  +6e-07  4e-14  2e-11  3e-08  3e-08  0.9890  3e-01   1  1  1 |  0  0
-20  -1.672e+00  -1.672e+00  +3e-07  1e-14  4e-12  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
-21  -1.672e+00  -1.672e+00  +2e-06  4e-14  1e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
-22  -1.672e+00  -1.672e+00  +7e-07  7e-14  1e-12  1e-07  3e-08  0.9890  3e-01   1  1  1 |  0  0
-23  -1.672e+00  -1.672e+00  +5e-07  1e-13  6e-11  3e-08  2e-08  0.9890  2e-01   1  1  1 |  0  0
-24  -1.672e+00  -1.672e+00  +3e-07  5e-14  2e-11  3e-08  1e-08  0.9890  3e-01   1  1  1 |  0  0
-25  -1.672e+00  -1.672e+00  +2e-06  1e-13  4e-11  4e-08  8e-08  0.9890  7e-01   1  1  1 |  0  0
-26  -1.672e+00  -1.672e+00  +6e-07  5e-14  4e-12  9e-08  3e-08  0.9890  2e-01   1  1  1 |  0  0
-27  -1.672e+00  -1.672e+00  +6e-07  2e-14  7e-12  3e-08  2e-08  0.9890  3e-01   1  1  1 |  0  0
-28  -1.672e+00  -1.672e+00  +4e-07  7e-15  3e-12  4e-08  2e-08  0.9890  4e-01   1  1  1 |  0  0
-29  -1.672e+00  -1.672e+00  +2e-06  3e-13  3e-09  5e-08  7e-08  0.9890  6e-01   1  1  1 |  0  0
-30  -1.672e+00  -1.672e+00  +5e-08  7e-15  6e-11  5e-09  2e-09  0.9890  1e-02   1  1  1 |  0  0
-31  -1.672e+00  -1.672e+00  +2e-06  2e-13  4e-11  9e-09  9e-08  0.9890  7e-01   1  1  1 |  0  0
-32  -1.672e+00  -1.672e+00  +2e-08  2e-15  5e-13  1e-10  1e-09  0.9890  1e-04   1  1  1 |  0  0
-33  -1.672e+00  -1.672e+00  +4e-06  4e-10  5e-13  5e-09  2e-07  0.9890  9e-01   1  1  1 |  0  0
-Unreliable search direction detected, recovering best iterate (32) and stopping.
+    get allData() {
+        return { ...this.data }
+    }
 
-Close to OPTIMAL (within feastol=4.6e-13, reltol=1.4e-08, abstol=2.3e-08).
-Runtime: 0.000496 seconds.
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > td')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > td')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`).classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
 
 
-ECOS 2.0.10 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
 
-It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma     IR    |   BT
- 0  -1.398e+06  -1.084e+07  +2e+07  2e-01  5e-09  1e+00  1e+06    ---    ---    1  1  - |  -  - 
- 1  -8.764e+05  -4.995e+06  +9e+06  1e-01  5e-03  2e+05  6e+05  0.7010  2e-01   0  0  0 |  0  0-------------------------------------------------------------------------------
-                                    Summary                                    
--------------------------------------------------------------------------------
-(CVXPY) Sep 01 04:30:58 AM: Problem status: optimal
-(CVXPY) Sep 01 04:30:58 AM: Optimal value: 8.333e+01
-(CVXPY) Sep 01 04:30:58 AM: Compilation took 1.042e-02 seconds
-(CVXPY) Sep 01 04:30:58 AM: Solver (including time spent in interface) took 2.074e-04 seconds
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testQuadratic</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testMarkowitzConstraint</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/test_cvxFinance.py::testQuadraticObjective</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+</html>
