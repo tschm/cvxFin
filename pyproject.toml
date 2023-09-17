@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "Good old faithful portfolio construction"
 authors = ["Thomas Schmelzer"]
 readme = "README.md"
+repository = "https://github.com/tschm/cvxFin"
 packages = [{include = "cvx"}]
 
 [tool.poetry.dependencies]
