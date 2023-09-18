@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-master_doc = "index"
 project = "cvxFin"
+
+master_doc = "index"
 
 source_suffix = {
     ".rst": "restructuredtext",
