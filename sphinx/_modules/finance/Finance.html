@@ -12,11 +12,11 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -27,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cvxFin
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cvxFin
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -57,9 +61,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>finance.Finance</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">finance.Finance</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,16 +90,24 @@
 <span class="kn">import</span> <span class="nn">cvx.finance.util</span> <span class="k">as</span> <span class="nn">ccu</span>
 
 
-<div class="viewcode-block" id="__weight"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.__weight">[docs]</a><span class="k">def</span> <span class="nf">__weight</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">):</span>
+<div class="viewcode-block" id="__weight">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.__weight">[docs]</a>
+<span class="k">def</span> <span class="nf">__weight</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">cvx</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">bxl</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">bxu</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="__constraint"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.__constraint">[docs]</a><span class="k">def</span> <span class="nf">__constraint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="__constraint">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.__constraint">[docs]</a>
+<span class="k">def</span> <span class="nf">__constraint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">A</span> <span class="o">*</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">bcu</span><span class="p">,</span> <span class="n">bcl</span> <span class="o">&lt;=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="solveLP"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveLP">[docs]</a><span class="k">def</span> <span class="nf">solveLP</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="solveLP">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveLP">[docs]</a>
+<span class="k">def</span> <span class="nf">solveLP</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solves a linear program</span>
 
@@ -115,7 +127,10 @@
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="solveQPcon"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveQPcon">[docs]</a><span class="k">def</span> <span class="nf">solveQPcon</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">qc</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="solveQPcon">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveQPcon">[docs]</a>
+<span class="k">def</span> <span class="nf">solveQPcon</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">qc</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solves a convex program with a quadratic constraint</span>
 
@@ -133,7 +148,10 @@
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="solveQPobj"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveQPobj">[docs]</a><span class="k">def</span> <span class="nf">solveQPobj</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="solveQPobj">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveQPobj">[docs]</a>
+<span class="k">def</span> <span class="nf">solveQPobj</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solves a convex program with a quadratic objective</span>
 
@@ -148,7 +166,10 @@
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="solveMarkowitzConstraint"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveMarkowitzConstraint">[docs]</a><span class="k">def</span> <span class="nf">solveMarkowitzConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">qc</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="solveMarkowitzConstraint">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveMarkowitzConstraint">[docs]</a>
+<span class="k">def</span> <span class="nf">solveMarkowitzConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">qc</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solves a convex program with a quadratic constraint and linear abs penalty</span>
 
@@ -170,7 +191,10 @@
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="solveMarkowitzObjective"><a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveMarkowitzObjective">[docs]</a><span class="k">def</span> <span class="nf">solveMarkowitzObjective</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="solveMarkowitzObjective">
+<a class="viewcode-back" href="../../autoapi/finance/Finance/index.html#finance.Finance.solveMarkowitzObjective">[docs]</a>
+<span class="k">def</span> <span class="nf">solveMarkowitzObjective</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solves a convex program with a quadratic constraint and linear abs penalty</span>
 
@@ -183,6 +207,7 @@
     <span class="n">objective</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">c</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">cvx</span><span class="o">.</span><span class="n">quad_form</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span> <span class="o">-</span> <span class="n">cvx</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">v</span>
     <span class="n">ccu</span><span class="o">.</span><span class="n">maximize</span><span class="p">(</span><span class="n">objective</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
+
 </pre></div>
 
            </div>

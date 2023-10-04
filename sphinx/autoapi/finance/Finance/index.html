@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>finance.Finance &mdash; cvxFin Documentation</title>
@@ -13,11 +13,11 @@
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -30,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> cvxFin
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cvxFin
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -71,10 +75,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">API Reference</a> &raquo;</li>
-          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance</span></code></a> &raquo;</li>
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.Finance</span></code></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.Finance</span></code></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/autoapi/finance/Finance/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,16 +89,12 @@
            <div itemprop="articleBody">
              
   <section id="module-finance.Finance">
-<span id="finance-finance"></span><h1><a class="reference internal" href="#module-finance.Finance" title="finance.Finance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.Finance</span></code></a><a class="headerlink" href="#module-finance.Finance" title="Permalink to this heading"></a></h1>
+<span id="finance-finance"></span><h1><a class="reference internal" href="#module-finance.Finance" title="finance.Finance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.Finance</span></code></a><a class="headerlink" href="#module-finance.Finance" title="Link to this heading"></a></h1>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#finance.Finance.__weight" title="finance.Finance.__weight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__weight</span></code></a>(c, bxl, bxu)</p></td>
 <td><p></p></td>
@@ -111,7 +111,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#finance.Finance.solveQPobj" title="finance.Finance.solveQPobj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solveQPobj</span></code></a>(c, A, Q, bxl, bxu, bcl, bcu)</p></td>
 <td><p>Solves a convex program with a quadratic objective</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#finance.Finance.solveMarkowitzConstraint" title="finance.Finance.solveMarkowitzConstraint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solveMarkowitzConstraint</span></code></a>(c, A, Q, qc, v, x0, bxl, bxu, bcl, bcu)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#finance.Finance.solveMarkowitzConstraint" title="finance.Finance.solveMarkowitzConstraint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solveMarkowitzConstraint</span></code></a>(c, A, Q, qc, v, x0, bxl, bxu, ...)</p></td>
 <td><p>Solves a convex program with a quadratic constraint and linear abs penalty</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#finance.Finance.solveMarkowitzObjective" title="finance.Finance.solveMarkowitzObjective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solveMarkowitzObjective</span></code></a>(c, A, Q, v, x0, bxl, bxu, bcl, bcu)</p></td>
@@ -121,17 +121,17 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.__weight">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">__weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#__weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.__weight" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">__weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#__weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.__weight" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.__constraint">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">__constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#__constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.__constraint" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">__constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#__constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.__constraint" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.solveLP">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveLP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveLP" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveLP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveLP" title="Link to this definition"></a></dt>
 <dd><p>Solves a linear program</p>
 <p>maximize    c’<a href="#id1"><span class="problematic" id="id2">*</span></a>x
 subject to  bcl &lt;= A*x &lt;= bcu</p>
@@ -142,7 +142,7 @@ subject to  bcl &lt;= A*x &lt;= bcu</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.solveQPcon">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveQPcon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveQPcon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveQPcon" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveQPcon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveQPcon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveQPcon" title="Link to this definition"></a></dt>
 <dd><p>Solves a convex program with a quadratic constraint</p>
 <p>maximize      c’<a href="#id3"><span class="problematic" id="id4">*</span></a>x
 subject to    bcl &lt;= A*x &lt;= bcu</p>
@@ -156,7 +156,7 @@ subject to    bcl &lt;= A*x &lt;= bcu</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.solveQPobj">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveQPobj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveQPobj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveQPobj" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveQPobj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveQPobj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveQPobj" title="Link to this definition"></a></dt>
 <dd><p>Solves a convex program with a quadratic objective</p>
 <p>maximize    c’<a href="#id7"><span class="problematic" id="id8">*</span></a>x - (1/2) x’<a href="#id9"><span class="problematic" id="id10">*</span></a>Q*x
 subject to    bcl &lt;= A*x &lt;= bcu</p>
@@ -167,7 +167,7 @@ subject to    bcl &lt;= A*x &lt;= bcu</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.solveMarkowitzConstraint">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveMarkowitzConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveMarkowitzConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveMarkowitzConstraint" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveMarkowitzConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveMarkowitzConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveMarkowitzConstraint" title="Link to this definition"></a></dt>
 <dd><p>Solves a convex program with a quadratic constraint and linear abs penalty</p>
 <p>maximize     c’<a href="#id11"><span class="problematic" id="id12">*</span></a>x - v’<a href="#id13"><span class="problematic" id="id14">*</span></a>abs{x - x0}
 subject to    bcl &lt;= A*x &lt;= bcu</p>
@@ -181,7 +181,7 @@ subject to    bcl &lt;= A*x &lt;= bcu</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.Finance.solveMarkowitzObjective">
-<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveMarkowitzObjective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveMarkowitzObjective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveMarkowitzObjective" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">finance.Finance.</span></span><span class="sig-name descname"><span class="pre">solveMarkowitzObjective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/Finance.html#solveMarkowitzObjective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.Finance.solveMarkowitzObjective" title="Link to this definition"></a></dt>
 <dd><p>Solves a convex program with a quadratic constraint and linear abs penalty</p>
 <p>maximize     c’<a href="#id17"><span class="problematic" id="id18">*</span></a>x - (1/2) x’<a href="#id19"><span class="problematic" id="id20">*</span></a>Q*x - v’<a href="#id21"><span class="problematic" id="id22">*</span></a>abs{x - x0}
 subject to    bcl &lt;= A*x &lt;= bcu</p>
