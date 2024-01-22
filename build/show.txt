@@ -22,13 +22,13 @@ cvxpy 1.4.2 A domain-specific language for modeling convex optimization problems
     ├── numpy >=1.7 
     └── scipy >=0.13.2 
         └── numpy >=1.22.4,<1.29.0 (circular dependency aborted here)
-pandas 2.1.4 Powerful data structures for data analysis, time series, and statistics
+pandas 2.2.0 Powerful data structures for data analysis, time series, and statistics
 ├── numpy >=1.22.4,<2
 ├── numpy >=1.23.2,<2
 ├── python-dateutil >=2.8.2
 │   └── six >=1.5 
 ├── pytz >=2020.1
-└── tzdata >=2022.1
+└── tzdata >=2022.7
 scikit-learn 1.4.0 A set of python modules for machine learning and data mining
 ├── joblib >=1.2.0
 ├── numpy >=1.19.5
