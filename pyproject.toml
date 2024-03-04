@@ -17,7 +17,7 @@ scikit-learn = "*"
 scipy = ">=1.10.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "8.0.2"
+pytest = "8.1.0"
 pytest-cov = "*"
 
 [build-system]
