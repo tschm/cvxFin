@@ -1,15 +1,11 @@
-:py:mod:`finance.util`
-======================
+finance.util
+============
 
 .. py:module:: finance.util
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -18,13 +14,12 @@ Functions
    finance.util.installed_solvers
 
 
+Module Contents
+---------------
 
 .. py:function:: minimize(objective, constraints, verbose=False, solver=cvx.ECOS)
 
-
 .. py:function:: maximize(objective, constraints, verbose=False, solver=cvx.ECOS)
 
-
 .. py:function:: installed_solvers()
-
 

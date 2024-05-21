@@ -51,11 +51,11 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance</span></code></a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">finance</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../Finance/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.Finance</span></code></a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.cvxRegression</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.util</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Finance/index.html">finance.Finance</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">finance.cvxRegression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../util/index.html">finance.util</a></li>
 </ul>
 </li>
 </ul>
@@ -79,8 +79,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
-          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance</span></code></a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.cvxRegression</span></code></li>
+          <li class="breadcrumb-item"><a href="../index.html">finance</a></li>
+      <li class="breadcrumb-item active">finance.cvxRegression</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/autoapi/finance/cvxRegression/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,11 +91,9 @@
            <div itemprop="articleBody">
              
   <section id="module-finance.cvxRegression">
-<span id="finance-cvxregression"></span><h1><a class="reference internal" href="#module-finance.cvxRegression" title="finance.cvxRegression"><code class="xref py py-mod docutils literal notranslate"><span class="pre">finance.cvxRegression</span></code></a><a class="headerlink" href="#module-finance.cvxRegression" title="Link to this heading"></a></h1>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<span id="finance-cvxregression"></span><h1>finance.cvxRegression<a class="headerlink" href="#module-finance.cvxRegression" title="Link to this heading"></a></h1>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#finance.cvxRegression.solveLASSO" title="finance.cvxRegression.solveLASSO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solveLASSO</span></code></a>(b, A, B, bxl, bxu, bcl, bcu[, tau])</p></td>
@@ -106,6 +104,9 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="finance.cvxRegression.solveLASSO">
 <span class="sig-prename descclassname"><span class="pre">finance.cvxRegression.</span></span><span class="sig-name descname"><span class="pre">solveLASSO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bxu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/finance/cvxRegression.html#solveLASSO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#finance.cvxRegression.solveLASSO" title="Link to this definition"></a></dt>
@@ -124,7 +125,6 @@ subject to  bcl &lt;= B*x &lt;= bcu</p>
 <p>minimize   2-norm (A*x-b)^2 + eps * 2-norm (Bx-c)^2 + tau 1-norm(x)</p>
 </dd></dl>
 
-</section>
 </section>
 </section>
 

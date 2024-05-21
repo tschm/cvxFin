@@ -1,15 +1,11 @@
-:py:mod:`finance.Finance`
-=========================
+finance.Finance
+===============
 
 .. py:module:: finance.Finance
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -22,12 +18,12 @@ Functions
    finance.Finance.solveMarkowitzObjective
 
 
+Module Contents
+---------------
 
 .. py:function:: __weight(c, bxl, bxu)
 
-
 .. py:function:: __constraint(x, A, bcl, bcu)
-
 
 .. py:function:: solveLP(c, A, bxl, bxu, bcl, bcu)
 

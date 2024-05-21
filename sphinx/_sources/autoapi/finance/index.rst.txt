@@ -1,17 +1,17 @@
-:py:mod:`finance`
-=================
+finance
+=======
 
 .. py:module:: finance
 
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   Finance/index.rst
-   cvxRegression/index.rst
-   util/index.rst
+   /autoapi/finance/Finance/index
+   /autoapi/finance/cvxRegression/index
+   /autoapi/finance/util/index
 
 

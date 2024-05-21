@@ -1,15 +1,11 @@
-:py:mod:`finance.cvxRegression`
-===============================
+finance.cvxRegression
+=====================
 
 .. py:module:: finance.cvxRegression
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -17,6 +13,8 @@ Functions
    finance.cvxRegression.solvePenalizedLSQ
 
 
+Module Contents
+---------------
 
 .. py:function:: solveLASSO(b, A, B, bxl, bxu, bcl, bcu, tau=0)
 
