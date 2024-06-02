@@ -14,16 +14,12 @@
 import cvxpy as cvx
 
 
-def minimize(objective, constraints, verbose=False, solver=cvx.ECOS):
-    cvx.Problem(cvx.Minimize(objective), constraints).solve(
-        verbose=verbose, solver=solver
-    )
+def minimize(objective, constraints, verbose=False):
+    cvx.Problem(cvx.Minimize(objective), constraints).solve(verbose=verbose)
 
 
-def maximize(objective, constraints, verbose=False, solver=cvx.ECOS):
-    cvx.Problem(cvx.Maximize(objective), constraints).solve(
-        verbose=verbose, solver=solver
-    )
+def maximize(objective, constraints, verbose=False):
+    cvx.Problem(cvx.Maximize(objective), constraints).solve(verbose=verbose)
 
 
 def installed_solvers():

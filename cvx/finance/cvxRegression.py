@@ -28,8 +28,8 @@ def solveLASSO(b, A, B, bxl, bxu, bcl, bcu, tau=0):
     """
     (n, m) = A.shape
     x = cvx.Variable(m)
-    constraints = [B * x <= bcu, bcl <= B * x, bxl <= x, x <= bxu]
-    objective = cvx.norm(A * x - b, 2) + tau * cvx.norm(x, 1)
+    constraints = [B @ x <= bcu, bcl <= B @ x, bxl <= x, x <= bxu]
+    objective = cvx.norm(A @ x - b, 2) + tau * cvx.norm(x, 1)
     ccu.minimize(objective=objective, constraints=constraints)
     return x.value
 

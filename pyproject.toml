@@ -12,13 +12,15 @@ homepage = "https://tschm.github.io/cvxFin"
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
 pandas = "*"
-cvxpy = "*"
+cvxpy-base = "*"
 scikit-learn = "*"
 scipy = ">=1.10.0"
+clarabel = "*"
 
 [tool.poetry.dev-dependencies]
-pytest = "7.4.2"
-pytest-cov = "*"
+pytest = "8.2.1"
+pytest-cov = "5.0.0"
+pre-commit = "3.7.1"
 
 [build-system]
 requires = ["poetry>=1.6.0"]
