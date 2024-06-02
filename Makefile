@@ -4,9 +4,11 @@ SHELL=/bin/bash
 
 UNAME=$(shell uname -s)
 
+
 .PHONY: install
 install:  ## Install a virtual environment
 	@poetry install -vv
+
 
 .PHONY: fmt
 fmt:  ## Run autoformatting and linting
@@ -14,13 +16,17 @@ fmt:  ## Run autoformatting and linting
 	@poetry run pre-commit install
 	@poetry run pre-commit run --all-files
 
+
 .PHONY: test
 test: install ## Run tests
 	@poetry run pytest
 
+
 .PHONY: clean
 clean:  ## Clean up caches and build artifacts
 	@git clean -X -d -f
+	@git branch -v | grep "\[gone\]" | cut -f 3 -d ' ' | xargs git branch -D
+
 
 .PHONY: coverage
 coverage: install ## test and coverage
@@ -45,11 +51,3 @@ help:  ## Display this help screen
 jupyter: install ## Run jupyter lab
 	@poetry run pip install jupyterlab
 	@poetry run jupyter lab
-
-
-.PHONY: boil
-boil: ## Update the boilerplate code
-	@gh repo clone git@github.com:cvxgrp/boilerplate.git .tmp
-	@cd .tmp  && poetry install -vv && cd ..
-	@.tmp/.venv/bin/python .tmp/parse.py pyproject.toml
-	@rm -rf .tmp
