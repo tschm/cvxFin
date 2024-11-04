@@ -19,7 +19,7 @@ clarabel = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "8.3.3"
-pytest-cov = "5.0.0"
+pytest-cov = "6.0.0"
 pre-commit = "4.0.1"
 
 [build-system]
