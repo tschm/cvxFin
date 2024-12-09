@@ -1,35 +1,35 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v5.0.0
     hooks:
       - id: check-toml
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 24.10.0
     hooks:
       - id: black
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.0.286'
+    rev: 'v0.8.2'
     hooks:
       - id: ruff
         args: [ --fix, --exit-non-zero-on-fix ]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.35.0
+    rev: v0.43.0
     hooks:
       - id: markdownlint-fix
 
   # enforcing the use of new python syntax with pyupgrade
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.10.1
+    rev: v3.19.0
     hooks:
       - id: pyupgrade
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.26.3
+    rev: 0.30.0
     hooks:
       - id: check-dependabot
         args: [ "--verbose" ]
@@ -44,7 +44,7 @@ repos:
   #    - id: poetry-lock
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.4
+    rev: v1.5.5
     hooks:
         - id: insert-license
           files: ^(cvx)
