@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-project = "cvxFin"
+project = "cvxsimulator"
 
 master_doc = "index"
 
@@ -12,9 +12,8 @@ source_suffix = {
 extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
-    "autoapi.extension",
     "sphinx.ext.napoleon",
-    "recommonmark",
+    "autoapi.extension",
 ]
 
 
@@ -35,8 +34,8 @@ napoleon_google_docstring = True
 napoleon_numpy_docstring = True
 
 # HTML -----------------------------------------------------------------
-html_favicon = "_static/logo.jpeg"
-html_logo = "_static/logo.jpeg"
+# html_favicon = "_static/logo.jpeg"
+# html_logo = "_static/logo.jpeg"
 html_title = "cvxFin Documentation"
 html_show_sourcelink = True
 html_css_files = [
