@@ -1,0 +1,17 @@
+finance
+=======
+
+.. py:module:: finance
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/finance/Finance/index
+   /autoapi/finance/cvxRegression/index
+   /autoapi/finance/util/index
+
+

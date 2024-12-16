@@ -1,0 +1,34 @@
+finance.cvxRegression
+=====================
+
+.. py:module:: finance.cvxRegression
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   finance.cvxRegression.solveLASSO
+   finance.cvxRegression.solvePenalizedLSQ
+
+
+Module Contents
+---------------
+
+.. py:function:: solveLASSO(b, A, B, bxl, bxu, bcl, bcu, tau=0)
+
+   Solves a constrained linear least squares problem
+
+   minimize   2-norm (A*x-b) + tau 1-norm(x)
+   subject to  bcl <= B*x <= bcu
+               bxl <=  x  <= bxu
+
+
+.. py:function:: solvePenalizedLSQ(A, b, eps, B, c)
+
+   Solves an  unconstrained linear least squares problem
+
+   minimize   2-norm (A*x-b)^2 + eps * 2-norm (Bx-c)^2 + tau 1-norm(x)
+
+

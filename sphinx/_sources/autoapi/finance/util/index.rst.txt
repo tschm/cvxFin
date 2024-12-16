@@ -1,0 +1,25 @@
+finance.util
+============
+
+.. py:module:: finance.util
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   finance.util.minimize
+   finance.util.maximize
+   finance.util.installed_solvers
+
+
+Module Contents
+---------------
+
+.. py:function:: minimize(objective, constraints, verbose=False)
+
+.. py:function:: maximize(objective, constraints, verbose=False)
+
+.. py:function:: installed_solvers()
+
