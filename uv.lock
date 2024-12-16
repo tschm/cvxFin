@@ -114,6 +114,7 @@ source = { editable = "." }
 dependencies = [
     { name = "clarabel" },
     { name = "cvxpy-base" },
+    { name = "numpy" },
     { name = "pandas" },
     { name = "scikit-learn" },
     { name = "scipy" },
@@ -130,6 +131,7 @@ dev = [
 requires-dist = [
     { name = "clarabel", specifier = ">=0.9.0" },
     { name = "cvxpy-base", specifier = ">=1.6.0" },
+    { name = "numpy", specifier = ">=2.2.0" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "scikit-learn", specifier = ">=1.6.0" },
     { name = "scipy", specifier = ">=1.14.1" },
