@@ -11,11 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import cvxpy as cvx
+import numpy as np
 from sklearn.linear_model import lasso_path
 
 import cvx.finance.util as ccu
-import cvxpy as cvx
-import numpy as np
 
 
 def solveLASSO(b, A, B, bxl, bxu, bcl, bcu, tau=0):
