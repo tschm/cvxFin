@@ -2,4 +2,4 @@
 
 ## Sphinx
 
-{{ '[API]({url}/sphinx/)'.format(url=book_url) }}
+{{ '[API]({url}/pdoc/)'.format(url=book_url) }}
