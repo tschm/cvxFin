@@ -53,9 +53,7 @@ def solveQPcon(c, A, Q, qc, bxl, bxu, bcl, bcu):
                 sqrt(x'*Q*x) <= qc
     """
     x, constraints = __weight(c, bxl, bxu)
-    constraints = (
-        constraints + __constraint(x, A, bcl, bcu) + [cvx.quad_form(x, Q) <= qc * qc]
-    )
+    constraints = constraints + __constraint(x, A, bcl, bcu) + [cvx.quad_form(x, Q) <= qc * qc]
     objective = x.T @ c
     ccu.maximize(objective=objective, constraints=constraints)
     return x.value

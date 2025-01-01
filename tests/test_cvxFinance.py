@@ -63,9 +63,7 @@ def testMarkowitzConstraint(c, A, Q, bxl, bxu, bcl, bcu):
     v1 = 2.0 * np.ones(4)
     x0 = np.array([5.0, 1.0, 10.0, 2.0])
 
-    x = Fin.solveMarkowitzConstraint(
-        c=c, A=A, Q=Q, qc=17, v=v1, x0=x0, bxl=bxl, bxu=bxu, bcl=bcl, bcu=bcu
-    )
+    x = Fin.solveMarkowitzConstraint(c=c, A=A, Q=Q, qc=17, v=v1, x0=x0, bxl=bxl, bxu=bxu, bcl=bcl, bcu=bcu)
     npTest.assert_array_almost_equal(x, np.array([3.0, 1.0, 10.0, 2.0]))
 
 
@@ -73,13 +71,9 @@ def testMarkowitzObjective(c, A, Q, bxl, bxu, bcl, bcu):
     v1 = 0.5 * np.ones(4)
     x0 = np.array([5.0, 1.0, 10.0, 2.0])
 
-    x = Fin.solveMarkowitzObjective(
-        c=c, A=A, Q=Q, v=v1, x0=x0, bxl=bxl, bxu=bxu, bcl=bcl, bcu=bcu
-    )
+    x = Fin.solveMarkowitzObjective(c=c, A=A, Q=Q, v=v1, x0=x0, bxl=bxl, bxu=bxu, bcl=bcl, bcu=bcu)
 
-    npTest.assert_array_almost_equal(
-        x, np.array([5.188679e00, 6.545244e-08, 7.216981e00, 1.297973e-08])
-    )
+    npTest.assert_array_almost_equal(x, np.array([5.188679e00, 6.545244e-08, 7.216981e00, 1.297973e-08]))
 
 
 def testQuadraticObjective(c, A, Q, bxl, bxu, bcl, bcu):
