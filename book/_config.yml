@@ -5,18 +5,11 @@ title: cvxFin
 author: Thomas Schmelzer
 only_build_toc_files: true
 
-execute:
-  execute_notebooks: force
-  timeout: 240
-
 parse:
   myst_enable_extensions:
     - substitution
-    - linkify
-    - dollarmath
   myst_substitutions:
     book_url: https://tschm.github.io/cvxFin
-
 
 # Information about where the book exists on the web
 repository:
