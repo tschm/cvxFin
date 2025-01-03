@@ -1,4 +1,4 @@
-# cvxFin
+# [cvxFin](https://tschm.github.io/cvxFin/book)
 
 ![Apache 2.0 License](https://img.shields.io/badge/License-APACHEv2-brightgreen.svg)
 
