@@ -70,14 +70,14 @@
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="c1"># See the License for the specific language governing permissions and</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="c1"># limitations under the License.</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="kn">import</span> <span class="nn">cvxpy</span> <span class="k">as</span> <span class="nn">cvx</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">lasso_path</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">cvxpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cvx</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">lasso_path</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">import</span> <span class="nn">cvx.finance.util</span> <span class="k">as</span> <span class="nn">ccu</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">cvx.finance.util</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccu</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="k">def</span> <span class="nf">solveLASSO</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="k">def</span><span class="w"> </span><span class="nf">solveLASSO</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    Solves a constrained linear least squares problem</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
@@ -93,7 +93,7 @@
 </span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span>
 </span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
 </span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="k">def</span> <span class="nf">solvePenalizedLSQ</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="k">def</span><span class="w"> </span><span class="nf">solvePenalizedLSQ</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    Solves an  unconstrained linear least squares problem</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
@@ -123,7 +123,7 @@
 
     </div>
     <a class="headerlink" href="#solveLASSO"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="solveLASSO-22"><a href="#solveLASSO-22"><span class="linenos">22</span></a><span class="k">def</span> <span class="nf">solveLASSO</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="solveLASSO-22"><a href="#solveLASSO-22"><span class="linenos">22</span></a><span class="k">def</span><span class="w"> </span><span class="nf">solveLASSO</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">bxl</span><span class="p">,</span> <span class="n">bxu</span><span class="p">,</span> <span class="n">bcl</span><span class="p">,</span> <span class="n">bcu</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 </span><span id="solveLASSO-23"><a href="#solveLASSO-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="solveLASSO-24"><a href="#solveLASSO-24"><span class="linenos">24</span></a><span class="sd">    Solves a constrained linear least squares problem</span>
 </span><span id="solveLASSO-25"><a href="#solveLASSO-25"><span class="linenos">25</span></a>
@@ -160,7 +160,7 @@ subject to  bcl &lt;= B</em>x &lt;= bcu
 
     </div>
     <a class="headerlink" href="#solvePenalizedLSQ"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="solvePenalizedLSQ-38"><a href="#solvePenalizedLSQ-38"><span class="linenos">38</span></a><span class="k">def</span> <span class="nf">solvePenalizedLSQ</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="solvePenalizedLSQ-38"><a href="#solvePenalizedLSQ-38"><span class="linenos">38</span></a><span class="k">def</span><span class="w"> </span><span class="nf">solvePenalizedLSQ</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
 </span><span id="solvePenalizedLSQ-39"><a href="#solvePenalizedLSQ-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="solvePenalizedLSQ-40"><a href="#solvePenalizedLSQ-40"><span class="linenos">40</span></a><span class="sd">    Solves an  unconstrained linear least squares problem</span>
 </span><span id="solvePenalizedLSQ-41"><a href="#solvePenalizedLSQ-41"><span class="linenos">41</span></a>
