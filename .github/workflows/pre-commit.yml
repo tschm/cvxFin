@@ -7,7 +7,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: cvxgrp/.github/actions/uv/coverage@main
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
+      - uses: cvxgrp/.github/actions/uv/coverage@v2.0.0
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
@@ -18,4 +21,7 @@ jobs:
   deptry:
     runs-on: ubuntu-latest
     steps:
-      - uses: cvxgrp/.github/actions/uv/deptry@main
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
+      - uses: cvxgrp/.github/actions/uv/deptry@v2.0.0
