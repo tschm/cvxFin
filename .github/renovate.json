@@ -8,9 +8,9 @@
     "**/.python-version"
   ],
   "lockFileMaintenance": {
-    "enabled": true,
+    "enabled": true
   },
   "pre-commit": {
-    "enabled": true,
+    "enabled": true
   }
 }
