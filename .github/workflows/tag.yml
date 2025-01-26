@@ -28,3 +28,18 @@ jobs:
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           generate_release_notes: true
+
+      - name: Build package
+        #working-directory: ${{ inputs.working-directory }}
+        shell: bash
+        run: |
+          # Update version in pyproject.toml from git tag
+          sed -i -e "s/0.0.0/${{ steps.tag_version.outputs.new_tag }}/" pyproject.toml
+          uv pip install hatch
+          # Build the package
+          hatch build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://upload.pypi.org/legacy/
