@@ -48,7 +48,6 @@ jobs:
         run: |
           pip install hatch
 
-
       - name: Build package
         run: |
           sed -i "s/0.0.0/${{ needs.tag.outputs.tag }}/" pyproject.toml
