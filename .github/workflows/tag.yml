@@ -54,6 +54,11 @@ jobs:
   publish:
     needs: build
     runs-on: ubuntu-latest
+
+    permissions:
+      # This permission is required for trusted publishing.
+      id-token: write
+
     steps:
       - uses: actions/download-artifact@v4
         with:
