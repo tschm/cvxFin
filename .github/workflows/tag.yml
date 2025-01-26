@@ -29,6 +29,27 @@ jobs:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           generate_release_notes: true
 
+      - name: Install uv
+        shell: bash
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+
+          # Add UV to PATH for the current shell session
+          echo "$HOME/.local/bin" >> $GITHUB_PATH   # Add UV binary directory to PATH in GitHub Actions environment
+          export PATH="$HOME/.local/bin:$PATH"      # Add UV binary directory to PATH for the current shell session
+
+          # "Verify UV installation"
+          uv --version  # Should print the installed version of UV
+
+      - name: Set up Python environment with uv
+        shell: bash
+        run: |
+          # Create venv
+          uv venv  --python='3.12'
+          # Add venv to PATH
+          #echo ".venv/bin" >> $GITHUB_PATH
+          #uv sync --all-extras --dev --frozen
+
       - name: Build package
         #working-directory: ${{ inputs.working-directory }}
         shell: bash
