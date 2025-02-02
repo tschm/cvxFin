@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
       - name: Generate Tag
         uses: cvxgrp/.github/actions/uv/tag@v2.0.17
         with:
@@ -30,9 +27,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
       # download dist from build
       - uses: actions/download-artifact@v4
         with:
