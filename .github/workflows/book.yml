@@ -38,4 +38,3 @@ jobs:
 
     steps:
       - uses: cvxgrp/.github/actions/book@v2.1.0
-
