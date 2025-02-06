@@ -11,11 +11,11 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@v2.2.0
 
-      - uses: cvxgrp/.github/actions/deptry@v2.1.2
+      - uses: cvxgrp/.github/actions/deptry@v2.2.0
         with:
           source-folder: 'cvx'
 
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: cvxgrp/.github/actions/pre-commit@v2.1.2
+      - uses: cvxgrp/.github/actions/pre-commit@v2.2.0
