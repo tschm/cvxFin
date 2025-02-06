@@ -10,7 +10,6 @@ jobs:
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: cvxgrp/.github/actions/environment@main
-
       - uses: cvxgrp/.github/actions/deptry@main
         with:
           source-folder: 'cvx'
