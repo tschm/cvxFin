@@ -10,7 +10,7 @@ jobs:
       - name: "Build the virtual environment for ${{ github.repository }}"
         uses: tschm/cradle/actions/environment@v0.1.57
 
-      - uses: cvxgrp/.github/actions/pdoc@v2.2.8
+      - uses: tschm/cradle/actions/pdoc@v0.1.57
 
   test:
     runs-on: "ubuntu-latest"
