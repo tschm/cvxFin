@@ -8,17 +8,17 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.58
+        uses: tschm/cradle/actions/environment@v0.1.59
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.58
+      - uses: tschm/cradle/actions/pdoc@v0.1.59
 
   test:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.58
+        uses: tschm/cradle/actions/environment@v0.1.59
 
-      - uses: tschm/cradle/actions/coverage@v0.1.58
+      - uses: tschm/cradle/actions/coverage@v0.1.59
         with:
           source-folder: 'cvx'
           tests-folder: 'tests'
@@ -27,9 +27,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.58
+        uses: tschm/cradle/actions/environment@v0.1.59
 
-      - uses: tschm/cradle/actions/jupyter@v0.1.58
+      - uses: tschm/cradle/actions/jupyter@v0.1.59
 
 
   book:
@@ -43,4 +43,4 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      - uses: tschm/cradle/actions/book@v0.1.58
+      - uses: tschm/cradle/actions/book@v0.1.59
