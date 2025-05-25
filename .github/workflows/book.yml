@@ -1,46 +1,53 @@
 name: "book"
 
+# This workflow builds and publishes the Jupyter Book for the project
+# It runs several jobs in parallel and then combines their outputs
+
 on:
-- push
+- push  # Run workflow on every push to the repository
 
 jobs:
   pdoc:
+    # Generate API documentation using pdoc
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.57
+        uses: tschm/cradle/actions/environment@v0.1.57  # Set up Python environment with dependencies
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.57
+      - uses: tschm/cradle/actions/pdoc@v0.1.57  # Generate API documentation
 
   test:
+    # Run tests and generate coverage reports
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.57
+        uses: tschm/cradle/actions/environment@v0.1.57  # Set up Python environment with dependencies
 
-      - uses: tschm/cradle/actions/coverage@v0.1.57
+      - uses: tschm/cradle/actions/coverage@v0.1.57  # Run tests and generate coverage reports
         with:
-          source-folder: 'cvx'
-          tests-folder: 'tests'
+          source-folder: 'cvx'  # Source code to test
+          tests-folder: 'tests'  # Location of test files
 
   jupyter:
+    # Process Jupyter notebooks for inclusion in the book
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.57
+        uses: tschm/cradle/actions/environment@v0.1.57  # Set up Python environment with dependencies
 
-      - uses: tschm/cradle/actions/jupyter@v0.1.57
+      - uses: tschm/cradle/actions/jupyter@v0.1.57  # Run Jupyter notebooks and generate outputs
 
 
   book:
+    # Build and publish the Jupyter Book
     runs-on: "ubuntu-latest"
-    needs: [test, pdoc, jupyter]
+    needs: [test, pdoc, jupyter]  # Wait for all other jobs to complete
 
     permissions:
-      contents: write
+      contents: write  # Need write access to push to gh-pages branch
 
     steps:
       - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Check out the repository code
 
-      - uses: tschm/cradle/actions/book@v0.1.57
+      - uses: tschm/cradle/actions/book@v0.1.57  # Build and publish the book to GitHub Pages
