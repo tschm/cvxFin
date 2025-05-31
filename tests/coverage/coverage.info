@@ -57,6 +57,10 @@ FNF:7
 FNH:7
 end_of_record
 SF:cvx/finance/__init__.py
+DA:14,1
+DA:15,1
+LF:2
+LH:2
 end_of_record
 SF:cvx/finance/cvxRegression.py
 DA:14,0
