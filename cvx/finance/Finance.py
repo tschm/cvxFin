@@ -13,7 +13,7 @@
 # limitations under the License.
 import cvxpy as cvx
 
-import cvx.finance.util as ccu
+from . import util as ccu
 
 
 def __weight(c, bxl, bxu):

@@ -50,3 +50,7 @@ DEP002 = ["cvxpy-base", "clarabel"]
 [tool.deptry]
 # see https://deptry.com/usage/#pep-621-dev-dependency-groups
 pep621_dev_dependency_groups = ["dev"]
+
+[tool.deptry.package_module_name_map]
+scikit-learn = ["sklearn"]
+cvxpy-base = ["cvxpy"]  # not strictly needed, but safe
