@@ -25,18 +25,9 @@ jobs:
           source-folder: 'cvx'
           tests-folder: 'tests'
 
-  jupyter:
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.75
-
-      - uses: tschm/cradle/actions/jupyter@v0.1.75
-
-
   book:
     runs-on: "ubuntu-latest"
-    needs: [test, pdoc, jupyter]
+    needs: [test, pdoc]
 
     environment:
       name: github-pages
@@ -48,3 +39,9 @@ jobs:
 
     steps:
       - uses: tschm/cradle/actions/book@v0.1.75
+        with:
+          title: "cvxFin"
+          links: |
+            {
+              "API": ".pdoc/index.html"
+            }
