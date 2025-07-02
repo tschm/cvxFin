@@ -43,5 +43,5 @@ jobs:
           title: "cvxFin"
           links: |
             {
-              "API": ".pdoc/index.html"
+              "API": "./pdoc/index.html"
             }
