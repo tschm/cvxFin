@@ -39,13 +39,6 @@ clean: ## Clean generated files and directories
 	@printf "$(BLUE)Cleaning project...$(RESET)\n"
 	@git clean -d -X -f
 
-##@ Marimo & Jupyter
-
-marimo: install ## Start a Marimo server
-	@printf "$(BLUE)Start Marimo server...$(RESET)\n"
-	@uv pip install marimo
-	@uv run marimo edit book/marimo
-
 ##@ Help
 
 help: ## Display this help message

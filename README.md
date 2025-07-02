@@ -4,8 +4,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tschm/cvxFin/badge)](https://www.codefactor.io/repository/github/tschm/cvxFin)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://github.com/renovatebot/renovate)
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tschm/cvxFin)
-
 I have decided to continue this project with cvxpy rather than cvxopt. test
 
 ## uv
