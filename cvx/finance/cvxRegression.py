@@ -15,7 +15,7 @@ import cvxpy as cvx
 import numpy as np
 from sklearn.linear_model import lasso_path
 
-import cvx.finance.util as ccu
+import .util as ccu
 
 
 def solveLASSO(b, A, B, bxl, bxu, bcl, bcu, tau=0):
