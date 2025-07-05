@@ -10,17 +10,17 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.75
+        uses: tschm/cradle/actions/environment@v0.1.80
 
-      - uses: tschm/cradle/actions/pdoc@v0.1.75
+      - uses: tschm/cradle/actions/pdoc@v0.1.80
 
   test:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: tschm/cradle/actions/environment@v0.1.75
+        uses: tschm/cradle/actions/environment@v0.1.80
 
-      - uses: tschm/cradle/actions/coverage@v0.1.75
+      - uses: tschm/cradle/actions/coverage@v0.1.80
         with:
           source-folder: 'cvx'
           tests-folder: 'tests'
@@ -38,7 +38,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: tschm/cradle/actions/book@v0.1.75
+      - uses: tschm/cradle/actions/book@v0.1.80
         with:
           title: "cvxFin"
           links: |
